@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/wc2018-android/app/app.iml" filepath="$PROJECT_DIR$/wc2018-android/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wc2018-android.iml" filepath="$PROJECT_DIR$/.idea/modules/wc2018-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wc2018-api.iml" filepath="$PROJECT_DIR$/.idea/modules/wc2018-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wc2018-api_main.iml" filepath="$PROJECT_DIR$/.idea/modules/wc2018-api_main.iml" group="wc2018-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wc2018-api_test.iml" filepath="$PROJECT_DIR$/.idea/modules/wc2018-api_test.iml" group="wc2018-api" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/wc2018-web.iml" filepath="$PROJECT_DIR$/.idea/modules/wc2018-web.iml" />
+    </modules>
+  </component>
+</project>

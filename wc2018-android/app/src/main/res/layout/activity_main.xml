@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.sothree.slidinguppanel.SlidingUpPanelLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/primary_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    app:umanoPanelHeight="64dp"
+    android:background="@color/colorPrimaryDark"
+    tools:context=".activites.MainActivity">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="WC2018"
+            android:fontFamily="@font/dusha_wc_2018"
+            android:textSize="36sp"
+            android:textAlignment="center"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <fragment
+            android:name="org.faziodev.wc2018.fragments.DashboardFragment"
+            android:id="@+id/main_content_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/sliding_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.92"
+        android:background="@color/colorAccent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:padding="5dp"
+            android:id="@+id/sliding_toolbar"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Left Side Item"
+                android:textAlignment="center"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                app:layout_constraintLeft_toLeftOf="parent"/>
+
+            <ImageView
+                android:id="@+id/player_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@android:color/transparent" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Right Side Item"
+                android:textAlignment="center"
+                android:background="@android:color/transparent"
+                android:layout_weight="1"
+                app:layout_constraintRight_toRightOf="parent"/>
+        </LinearLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/sliding_content_panel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/sliding_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/colorPrimary">
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/log_in_out_button"
+                    android:text="Please log in"/>
+                <Button
+                    android:id="@+id/log_in_out_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="Log In"/>
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</com.sothree.slidinguppanel.SlidingUpPanelLayout>

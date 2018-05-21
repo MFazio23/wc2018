@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">WC2018</string>
+    <string name="title_activity_main">WC2018</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">1979098249022833</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1979098249022833</string>
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">yCvNaEAzLOBNNVM4LByQj1D2b</string>
+    <string name="twitter_consumer_secret" translatable="false">5DXw3BYSAN8v2PJR61ISbAInBtUay0UiPNuohRefvu5Ap5emzT</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
