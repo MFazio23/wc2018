@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {withStyles} from "@material-ui/core/styles/index";
 import firebase from 'firebase/app';
 import 'firebase/database';
 import update from 'immutability-helper';
@@ -9,8 +10,15 @@ import CardHeader from "@material-ui/core/CardHeader"
 import PartyCard from "./PartyCard";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
+import withRoot from "../../WithRoot";
 
-export default class ListParties extends Component {
+const styles = {
+    partyButton: {
+        marginRight: 10
+    }
+};
+
+class ListParties extends Component {
     baseFirebasePath = '/parties/';
 
     constructor(props) {
@@ -74,6 +82,7 @@ export default class ListParties extends Component {
     };
 
     render() {
+        const { classes } = this.props;
         return (
             <div>
                 <Card>
@@ -82,8 +91,8 @@ export default class ListParties extends Component {
                         title="New Party"
                         subheader="Join an existing party or create a new one" />
                     <CardContent>
-                        <Button size="large" onClick={() => this.partyButtonClicked('joinOpen')}>Join a Party</Button>
-                        <Button size="large" onClick={() => this.partyButtonClicked('createOpen')}>Create a Party</Button>
+                        <Button className={classes.partyButton} size="large" variant="raised" color="primary" onClick={() => this.partyButtonClicked('joinOpen')}>Join Party</Button>
+                        <Button className={classes.partyButton} size="large" variant="raised" color="primary" onClick={() => this.partyButtonClicked('createOpen')}>Create Party</Button>
                     </CardContent>
                 </Card>
                 <div>{Object.keys(this.state.parties).map((partyToken) => <PartyCard key={partyToken} party={this.state.parties[partyToken]} />)}</div>
@@ -93,3 +102,5 @@ export default class ListParties extends Component {
         );
     }
 }
+
+export default withRoot(withStyles(styles)(ListParties));

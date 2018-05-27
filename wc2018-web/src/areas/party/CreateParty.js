@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
+import withRoot from "../../WithRoot";
 
 const styles = {
     card: {
@@ -28,7 +29,11 @@ class CreateParty extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {"partyName": "", "createdPartyToken": ""}
+        this.state = {
+            "partyName": "",
+            "createdPartyToken": "",
+            "createButtonDisabled": false
+        }
     }
 
     handleChange = name => event => {
@@ -42,6 +47,7 @@ class CreateParty extends Component {
     createParty = () => {
         const fbUser = firebase.auth().currentUser;
         if(fbUser && this.state.partyName) {
+            this.setState({createButtonDisabled: true});
             const partyInfo = {
                 "name": this.state.partyName,
                 "owner": {
@@ -50,7 +56,7 @@ class CreateParty extends Component {
                 }
             };
             axios
-                .post(`http://fazbook:8080/party/`, partyInfo)
+                .post(`https://wc2018-api.faziodev.org/party/`, partyInfo)
                 .then((resp) => {
                     if(resp.status === 200 && resp.data){
                         this.setState({"createdPartyToken": resp.data.token});
@@ -74,7 +80,6 @@ class CreateParty extends Component {
 
     render() {
         const { classes, onClose, selectedValue, ...other } = this.props;
-
         return (
             <Dialog onClose={this.handleClose} {...other}>
                 <Card className={classes.card}>
@@ -90,7 +95,8 @@ class CreateParty extends Component {
                             value={this.state.partyName}
                             onKeyPress={this.handleKeyPress}
                         />
-                        <Button variant="raised" color="primary" onClick={this.createParty}>Create</Button>                        
+                        <Button className={classes.createPartyButton} variant="raised" color="primary"
+                                onClick={this.createParty} disabled={this.state.createButtonDisabled}>Create</Button>
                     </CardContent>
                 </Card>
             </Dialog>
@@ -98,4 +104,4 @@ class CreateParty extends Component {
     }
 }
 
-export default withStyles(styles)(CreateParty);
+export default withRoot(withStyles(styles)(CreateParty));

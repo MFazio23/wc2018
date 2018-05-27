@@ -1,19 +1,13 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import firebase from 'firebase/app';
 import 'firebase/auth'
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { withStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
+import {withStyles} from '@material-ui/core/styles';
+import Dialog from '@material-ui/core/Dialog'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import withRoot from "../../WithRoot";
 
 const styles = {
-    card: {
-        minWidth: 275,
-        maxWidth: 400,
-        margin: '30px auto 0'
-
-    },
     bullet: {
         display: 'inline-block',
         margin: '0 2px',
@@ -26,48 +20,58 @@ const styles = {
     pos: {
         marginBottom: 12,
     },
+    confirmation: {
+        padding: 10
+    }
+};
+
+const uiConfig = {
+    signInFlow: 'popup',
+    signInOptions: [
+        firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+        firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID
+    ],
+    callbacks: {
+        signInSuccessWithAuthResult: () => false,
+    },
 };
 
 class Login extends Component {
-    uiConfig = {
-        signInFlow: 'popup',
-        signInOptions: [
-            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-            firebase.auth.TwitterAuthProvider.PROVIDER_ID,
-            firebase.auth.EmailAuthProvider.PROVIDER_ID,
-        ],
-        callbacks: {
-            signInSuccessWithAuthResult: () => false,
-        },
+
+    constructor(props) {
+        super(props);
+        this.state = {
+
+        };
+    }
+
+    handleClose = () => {
+        this.props.onClose();
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         return (
-            <div>
-                <Card className={classes.card}>
-                    <CardHeader
-                        title="WC2018 Account"
-                    />
-                    <CardContent>
-                        {this.props.isSignedIn !== undefined && !this.props.isSignedIn &&
-                        <div>
-                            <StyledFirebaseAuth uiConfig={this.uiConfig}
-                                                firebaseAuth={firebase.auth()}/>
-                        </div>
-                        }
-                        {this.props.isSignedIn &&
-                        <div>
-                            Hello {firebase.auth().currentUser.displayName}. You are now signed In!
-                            <a onClick={() => firebase.auth().signOut()}>Sign-out</a>
-                        </div>
-                        }
-                    </CardContent>
-                </Card>
-            </div>
+            <Dialog onClose={this.handleClose} open={this.props.open}>
+                <DialogTitle>WC2018 Account</DialogTitle>
+                <div>
+                    {this.props.isSignedIn !== undefined && !this.props.isSignedIn &&
+                    <div>
+                        <StyledFirebaseAuth uiConfig={uiConfig}
+                                            firebaseAuth={firebase.auth()}/>
+                    </div>
+                    }
+                    {this.props.isSignedIn &&
+                    <div className={classes.confirmation}>
+                        <h2>Welcome {firebase.auth().currentUser.displayName}.</h2>
+                        <h4>You are now signed In!</h4>
+                    </div>
+                    }
+                </div>
+            </Dialog>
         );
     }
 }
 
-export default withStyles(styles)(Login);
+export default withRoot(withStyles(styles)(Login));

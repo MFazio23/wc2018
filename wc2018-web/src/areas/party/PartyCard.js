@@ -3,11 +3,11 @@ import {withStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import IconButton from "@material-ui/core/IconButton";
 import List from "@material-ui/core/List";
-import SettingsIcon from "@material-ui/icons/Settings"
 import PartyUserSummary from "./PartyUserSummary";
-import firebase from 'firebase/app';
+import withRoot from "../../WithRoot";
+/*import IconButton from "@material-ui/core/IconButton";
+import SettingsIcon from "@material-ui/icons/Settings"*/
 
 const styles = {
     card: {
@@ -30,7 +30,7 @@ class PartyCard extends Component {
                     className={this.classes.title}
                     title={this.props.party ? this.props.party.name : "N/A"}
                     subheader={`${this.props.party.token} - Owner: ${this.props.party.owner.name}`}
-                    action={this.props.party.owner.id === firebase.auth().currentUser.uid ? (<IconButton><SettingsIcon /></IconButton>) : ''}/>
+                    /*action={<IconButton><SettingsIcon /></IconButton>}*//>
                 <CardContent>
                     <List>
                         {Object.keys(this.props.party.users).map((userId) => <PartyUserSummary key={userId} partyToken={this.props.party.token} partyUser={this.props.party.users[userId]} />)}
@@ -41,4 +41,4 @@ class PartyCard extends Component {
     }
 }
 
-export default withStyles(styles)(PartyCard);
+export default withRoot(withStyles(styles)(PartyCard));

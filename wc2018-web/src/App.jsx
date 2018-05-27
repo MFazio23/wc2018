@@ -4,7 +4,6 @@ import TopNav from "./areas/main/TopNav";
 import Main from "./areas/main/Main";
 import firebase from 'firebase/app';
 import axios from 'axios';
-import Button from "@material-ui/core/Button";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRM6r7nG4QWwiiJxBbpH_ohdgl8JfvJ58",
@@ -49,7 +48,7 @@ class App extends Component {
             const userId = firebase.auth().currentUser.uid;
             console.log("UID", userId);
             axios
-                .get(`http://fazbook:8080/party/tokens?userId=${userId}`)
+                .get(`https://wc2018-api.faziodev.org/party/tokens?userId=${userId}`)
                 .then((resp) => {
                     this.setState({"partyTokens": resp.data})
                 })
@@ -66,7 +65,6 @@ class App extends Component {
             <div>
                 <TopNav isSignedIn={this.state.isSignedIn} onSignOut={this.onSignOut}/>
                 <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats} />
-                <Button onClick={this.loadPartyTokensForUser}>Load Tokens</Button>
             </div>
         );
     }

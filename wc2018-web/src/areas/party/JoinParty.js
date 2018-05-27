@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
+import withRoot from "../../WithRoot";
 
 const styles = {
     card: {
@@ -19,6 +20,9 @@ const styles = {
     },
     partyTokenField: {
         marginRight: 10
+    },
+    searchPartyButton: {
+        marginTop: 10
     },
     joinPartyButton: {
         marginTop: 10
@@ -79,7 +83,7 @@ class JoinParty extends Component {
                 name: fbUser.displayName
             };
             axios
-                .post(`http://fazbook:8080/party/${partyToken}/user`, currentUser)
+                .post(`https://wc2018-api.faziodev.org/party/${partyToken}/user`, currentUser)
                 .then((resp) => {
                     if (resp.status === 200) {
                         this.setState({"joinedPartyToken": partyToken});
@@ -123,7 +127,7 @@ class JoinParty extends Component {
                             value={this.state.partyToken}
                             onKeyPress={this.handleKeyPress}
                         />
-                        <Button variant="raised" color="primary" onClick={this.getParty}>Search</Button>
+                        <Button className={classes.searchPartyButton} variant="raised" color="primary" onClick={this.getParty}>Search</Button>
                         <div>
                             {this.state.partyNotFound ?
                                 `No parties found for ${this.state.partyToken}` :
@@ -152,4 +156,4 @@ class JoinParty extends Component {
     }
 }
 
-export default withStyles(styles)(JoinParty);
+export default withRoot(withStyles(styles)(JoinParty));

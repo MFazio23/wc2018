@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles";
-import {Link} from "react-router-dom";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import "flag-icon-css/css/flag-icon.min.css"
 import teams from "../../util/Teams";
+import withRoot from "../../WithRoot";
 
 const styles = {
     card: {
@@ -45,7 +45,7 @@ class PartyUserSummary extends Component {
     render() {
         return (
             <div>
-                <ListItem button component={Link} to={`/party/${this.props.partyToken}/${this.props.partyUser.id}`}>
+                <ListItem button>
                     <ListItemText primary={this.props.partyUser ? this.props.partyUser.name : ''}/>
                     {this.props.partyUser && this.props.partyUser.teams ? (<ListItemSecondaryAction>
                             <div className={this.classes.flags}>
@@ -59,4 +59,4 @@ class PartyUserSummary extends Component {
     }
 }
 
-export default withStyles(styles)(PartyUserSummary);
+export default withRoot(withStyles(styles)(PartyUserSummary));

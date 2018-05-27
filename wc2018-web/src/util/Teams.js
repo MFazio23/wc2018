@@ -26,7 +26,7 @@ export default {
     "BEL": {"name": "Belgium", "eloCode": "BE", "isoCode": "BE", "group": "G"},
     "PAN": {"name": "Panama", "eloCode": "PA", "isoCode": "PA", "group": "G"},
     "TUN": {"name": "Tunisia", "eloCode": "TN", "isoCode": "TN", "group": "G"},
-    "ENG": {"name": "England", "eloCode": "EN", "isoCode": "GB", "group": "G"},
+    "ENG": {"name": "England", "eloCode": "EN", "isoCode": "GB-ENG", "group": "G"},
     "POL": {"name": "Poland", "eloCode": "PL", "isoCode": "PL", "group": "H"},
     "SEN": {"name": "Senegal", "eloCode": "SN", "isoCode": "SN", "group": "H"},
     "COL": {"name": "Colombia", "eloCode": "CO", "isoCode": "CO", "group": "H"},
