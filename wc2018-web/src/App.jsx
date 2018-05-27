@@ -23,7 +23,8 @@ class App extends Component {
 
         this.state = {
             "isSignedIn": undefined,
-            "partyTokens": []
+            "partyTokens": [],
+            "stats": {}
         };
     }
 
@@ -33,6 +34,10 @@ class App extends Component {
 
             if(user) this.loadPartyTokensForUser();
         });
+
+        firebase.database().ref(`/stats`).on('value', (snap) => {
+            this.setState({"stats": snap.val()});
+        });
     }
 
     componentWillUnmount() {
@@ -40,20 +45,27 @@ class App extends Component {
     }
 
     loadPartyTokensForUser = () => {
-        axios
-            .get('http://fazbook:8080/party/tokens?userId=47A1C6464WuRF9AUNoxV51JsoWaB2')
-            .then((resp) => {
-                console.log("LPTFU", resp);
-                this.setState({"partyTokens": resp.data})
-            })
-            .catch((err) => console.error("Error loading user parties.", err));
+        if(firebase.auth().currentUser) {
+            const userId = firebase.auth().currentUser.uid;
+            console.log("UID", userId);
+            axios
+                .get(`http://fazbook:8080/party/tokens?userId=${userId}`)
+                .then((resp) => {
+                    this.setState({"partyTokens": resp.data})
+                })
+                .catch((err) => console.error("Error loading user parties.", err));
+        }
+    };
+
+    onSignOut = () => {
+        this.setState({"partyTokens": []});
     };
 
     render() {
         return (
             <div>
-                <TopNav isSignedIn={this.state.isSignedIn}/>
-                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} />
+                <TopNav isSignedIn={this.state.isSignedIn} onSignOut={this.onSignOut}/>
+                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats} />
                 <Button onClick={this.loadPartyTokensForUser}>Load Tokens</Button>
             </div>
         );

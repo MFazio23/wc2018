@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
 import firebase from 'firebase/app';
 import 'firebase/database';
+import update from 'immutability-helper';
+import Button from "@material-ui/core/Button"
+import Card from "@material-ui/core/Card"
+import CardContent from "@material-ui/core/CardContent"
+import CardHeader from "@material-ui/core/CardHeader"
+import PartyCard from "./PartyCard";
+import CreateParty from "./CreateParty";
+import JoinParty from "./JoinParty";
 
 export default class ListParties extends Component {
-    firebaseParties = {};
     baseFirebasePath = '/parties/';
 
     constructor(props) {
@@ -12,7 +18,10 @@ export default class ListParties extends Component {
 
         this.state = {
             "parties": {},
-            "lastPartyTokens": []
+            "firebaseParties": {},
+            "lastPartyTokens": [],
+            "joinOpen": false,
+            "createOpen": false
         };
     }
 
@@ -21,7 +30,6 @@ export default class ListParties extends Component {
     }
 
     componentDidUpdate() {
-        console.log("ComponentDidUpdate", this.props.partyTokens);
         if(this.state.lastPartyTokens !== this.props.partyTokens) {
             this.updateBindings();
         }
@@ -34,7 +42,7 @@ export default class ListParties extends Component {
     };
 
     unbindParty = (partyToken) => {
-        const firebaseParty = this.firebaseParties[partyToken];
+        const firebaseParty = this.state.firebaseParties[partyToken];
         if(firebaseParty) {
             const ref = firebaseParty.ref;
             ref.off('value', firebaseParty.callback);
@@ -48,21 +56,39 @@ export default class ListParties extends Component {
             newParties[partyToken] = snap.val();
             this.setState({"parties": newParties});
         });
+        this.setState({
+            firebaseParties: update(this.state.firebaseParties, {
+                ref: {$set: ref},
+                callback: {$set: callback}
+            })
+        });
+    };
 
-        this.firebaseParties[partyToken] = {
-            ref,
-            callback
-        };
+    partyButtonClicked = (buttonProp) => {
+        this.setState({[buttonProp]: true});
+    };
+
+    handleClose = (partyToken) => {
+        this.setState({"joinOpen": false, "createOpen": false});
+        if(partyToken) this.bindParty(partyToken);
     };
 
     render() {
         return (
             <div>
-                <h1>List Parties</h1>
-                <h3>{this.props.partyTokens.join(", ")}</h3>
-                <pre>{JSON.stringify(this.state.parties, null, 2)}</pre>
-                <Link to="/party/create">Create</Link><br/>
-                <Link to="/party/join">Join</Link><br/>
+                <Card>
+                    <CardHeader
+                        /*className={this.classes.title}*/
+                        title="New Party"
+                        subheader="Join an existing party or create a new one" />
+                    <CardContent>
+                        <Button size="large" onClick={() => this.partyButtonClicked('joinOpen')}>Join a Party</Button>
+                        <Button size="large" onClick={() => this.partyButtonClicked('createOpen')}>Create a Party</Button>
+                    </CardContent>
+                </Card>
+                <div>{Object.keys(this.state.parties).map((partyToken) => <PartyCard key={partyToken} party={this.state.parties[partyToken]} />)}</div>
+                <JoinParty open={this.state.joinOpen} onClose={this.handleClose} />
+                <CreateParty open={this.state.createOpen} onClose={this.handleClose} />
             </div>
         );
     }

@@ -6,6 +6,10 @@ import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.database.FirebaseDatabase
 import com.google.gson.Gson
 import org.faziodev.wc2018.types.*
+import org.faziodev.wc2018.types.firebase.FirebaseParty
+import org.faziodev.wc2018.types.firebase.FirebasePartyOwner
+import org.faziodev.wc2018.types.firebase.FirebasePartyUser
+import org.faziodev.wc2018.types.firebase.FirebaseTeam
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -29,12 +33,14 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
 
     fun getPartiesByUserId(userId: String): List<Party>? {
         //TODO: Make this better.
-        return this.getAllParties()?.filter { it.users?.any { it.id == userId } ?: false }
+        return this.getAllParties()?.filter { it.users?.any { (id) -> id == userId } ?: false }
     }
 
     fun getPartyTokensByUserId(userId: String): List<String?>? {
         //TODO: Make this better.
-        return this.getAllParties()?.filter { it.users?.any { it.id == userId } ?: false }?.map { party -> party.token }
+        return this.getAllParties()
+            ?.filter { it.users?.any { (id) -> id == userId } ?: false }
+            ?.map { party -> party.token }
     }
 
     fun createNewParty(party: Party) : Party {
@@ -43,7 +49,7 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
             partyToken = this.generatePartyToken()
         } while (this.getPartyByToken(partyToken) != null)
 
-        val updatedParty = party.copy(owner = party.owner.copy(isOwner = true), token = partyToken)
+        val updatedParty = party.copy(owner = party.owner, token = partyToken)
         this.saveParty(updatedParty)
 
         return updatedParty
@@ -66,13 +72,13 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
     fun addUserToParty(partyToken: String, user: PartyUser) {
         val party: Party = this.getPartyByToken(partyToken) ?: return
 
-        this.saveParty(party.copy(users = party.users?.plus(user)))
+        this.saveParty(party.copy(users = party.users?.plus(user.id to user)))
     }
 
     fun removeUserFromParty(partyToken: String, userId: String) {
         val party: Party = this.getPartyByToken(partyToken) ?: return
 
-        this.saveParty(party.copy(users = party.users?.filter { partyUser -> partyUser.id != userId }))
+        this.saveParty(party.copy(users = party.users?.filter { (userId, partyUser) -> partyUser.id != userId }))
     }
 
     fun generatePartyToken() : String {
@@ -84,7 +90,7 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
 
     fun distributeTeamsForParty(partyToken: String, rankingType: RankingType, teamsPerUser: Int): Party? {
         val party: Party = this.getPartyByToken(partyToken) ?: return null
-        val users: List<PartyUser> = party.users ?: return party
+        val users: Map<String, PartyUser> = party.users ?: return party
         if(teamsPerUser <= 0 || users.size * teamsPerUser > 32) return party
         val rankedTeams = this.rankingsService.getTeamsWithRankings() ?: return party
 
@@ -92,9 +98,9 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
         val splitTeams = sortedTeams
             .chunked(users.size, { it -> it.shuffled()})
             .filter { it.size == users.size }
-        val usersWithTeams = users
+        val usersWithTeams = users.values
             .withIndex()
-            .map {(ind, user) -> user.copy(teams = splitTeams.map { it[ind] })}
+            .associate {(ind, user) -> user.id to user.copy(teams = splitTeams.associate {teamList -> teamList[ind].id to teamList[ind].name})}
 
         val partyWithTeams = party.copy(users = usersWithTeams)
 
@@ -104,7 +110,13 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
     }
 
     private fun saveParty(party: Party) {
+        val firebaseParty = FirebaseParty(
+            party.token,
+            party.name,
+            PartyOwner(party.owner.id, party.owner.name),
+            party.users)//?.mapValues {FirebasePartyUser(it.value.name, it.value.teams?.mapValues { it.value.name })})
+
         val partyRef = this.database.getReference("parties/${party.token}")
-        partyRef.setValueAsync(party).get()
+        partyRef.setValueAsync(firebaseParty).get()
     }
 }

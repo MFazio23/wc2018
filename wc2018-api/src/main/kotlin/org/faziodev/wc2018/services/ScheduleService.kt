@@ -16,6 +16,16 @@ class ScheduleService(@Autowired val teams: List<Team>, googleCredentials: Googl
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
+    fun getMiddle(word : String) : String {
+        //val midIndex: Int = java.lang.Math.ceil((word.length / 2).toDouble()).toInt()
+        val midIndex: Double = word.length.toDouble() / 2.0
+
+        val concatString: (String, String) -> String = String::plus
+
+        return word.substring(java.lang.Math.ceil(midIndex - 1.0).toInt(), java.lang.Math.floor(midIndex).toInt())
+
+    }
+
     fun loadSchedule() {
         val schedule: MutableMap<String, Fixture> = mutableMapOf()
 

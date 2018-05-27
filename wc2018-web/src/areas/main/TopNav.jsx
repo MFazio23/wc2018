@@ -37,6 +37,7 @@ class TopNav extends Component {
 
     signOut = () => {
         firebase.auth().signOut();
+        this.props.onSignOut();
         this.handleClose();
     };
 

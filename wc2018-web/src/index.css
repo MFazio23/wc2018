@@ -3,3 +3,7 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.user-flag {
+  margin-left: 20px;
+}
