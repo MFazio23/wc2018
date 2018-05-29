@@ -12,35 +12,36 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin()
 class PartyController {
 
-    @Autowired lateinit var partyService: PartyService
+    @Autowired
+    lateinit var partyService: PartyService
 
     @GetMapping("/test")
-    fun getTestParty() : Party {
+    fun getTestParty(): Party {
         return Party("TSTPTY", "Test Party", PartyUser("TESTUSER", "Test User"))
     }
 
     @GetMapping("")
-    fun getAllParties() : List<Party>? {
+    fun getAllParties(): List<Party>? {
         return this.partyService.getAllParties()
     }
 
     @GetMapping("", params = ["userId"])
-    fun getPartiesByUserId(@RequestParam(value = "userId") userId: String) : List<Party>? {
+    fun getPartiesByUserId(@RequestParam(value = "userId") userId: String): List<Party>? {
         return this.partyService.getPartiesByUserId(userId)
     }
 
     @GetMapping("/tokens", params = ["userId"])
-    fun getPartyTokensByUserId(@RequestParam(value = "userId") userId: String) : List<String?>? {
+    fun getPartyTokensByUserId(@RequestParam(value = "userId") userId: String): List<String?>? {
         return this.partyService.getPartyTokensByUserId(userId)
     }
 
     @GetMapping("/{partyToken}")
-    fun getPartyByToken(@PathVariable("partyToken") partyToken: String) : Party? {
+    fun getPartyByToken(@PathVariable("partyToken") partyToken: String): Party? {
         return this.partyService.getPartyByToken(partyToken)
     }
 
     @PostMapping("")
-    fun createNewParty(@RequestBody party: Party) : Party {
+    fun createNewParty(@RequestBody party: Party): Party {
         return this.partyService.createNewParty(party)
     }
 
@@ -55,7 +56,7 @@ class PartyController {
     }
 
     @DeleteMapping("/{partyToken}/user")
-    fun removeUserFromParty(@PathVariable("partyToken") partyToken: String, @RequestParam(name = "userId") userId: String) {
+    fun removeUserFromParty(@PathVariable("partyToken") partyToken: String, @RequestParam(name = "userId") userId: String): Party? {
         return this.partyService.removeUserFromParty(partyToken, userId)
     }
 
@@ -63,13 +64,13 @@ class PartyController {
     fun distributeTeamsForParty(
         @PathVariable("partyToken") partyToken: String,
         @RequestParam(name = "rankingType") rankingType: RankingType,
-        @RequestParam(name = "teamsPerUser") teamsPerUser: Int) : Party? {
+        @RequestParam(name = "teamsPerUser") teamsPerUser: Int): Party? {
 
         return this.partyService.distributeTeamsForParty(partyToken, rankingType, teamsPerUser)
     }
 
     @GetMapping("token")
-    fun generatePartyToken() :String {
+    fun generatePartyToken(): String {
         return this.partyService.generatePartyToken()
     }
 }

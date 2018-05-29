@@ -75,10 +75,14 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
         this.saveParty(party.copy(users = party.users?.plus(user.id to user)))
     }
 
-    fun removeUserFromParty(partyToken: String, userId: String) {
-        val party: Party = this.getPartyByToken(partyToken) ?: return
+    fun removeUserFromParty(partyToken: String, userIdToDelete: String) : Party? {
+        val party: Party = this.getPartyByToken(partyToken) ?: return null
 
-        this.saveParty(party.copy(users = party.users?.filter { (userId, partyUser) -> partyUser.id != userId }))
+        val newParty = party.copy(users = party.users?.filter { (userId, _) -> userIdToDelete != userId })
+
+        this.saveParty(newParty)
+
+        return newParty
     }
 
     fun generatePartyToken() : String {
