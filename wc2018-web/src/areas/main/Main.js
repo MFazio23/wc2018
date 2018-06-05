@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {Route, Switch} from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Snackbar from '@material-ui/core/Snackbar'
+import CloseIcon from '@material-ui/icons/Close'
 import Login from "../login/Login";
 import Home from "./Home"
 import Profile from "../profile/Profile";
@@ -9,15 +13,44 @@ import ListParties from "../party/ListParties";
 import withRoot from "../../WithRoot";
 import Privacy from "../about/Privacy";
 import About from "../about/About";
+import {CopyToClipboard} from "react-copy-to-clipboard";
 
-const styles = {
+const styles = theme => ({
+    close: {
+        width: theme.spacing.unit * 4,
+        height: theme.spacing.unit * 4,
+    },
     main: {
         margin: '0 auto',
         maxWidth: '960px'
     }
-};
+});
 
 class Main extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            snackbarOpen: false,
+            snackbarText: ''
+        };
+    }
+
+    handleSnackbarClose = () => {
+        this.setState({
+            snackbarOpen: false,
+            snackbarText: ''
+        });
+    };
+
+    handleDisplaySnackbar = (text, itemToCopy) => {
+        this.setState({
+            snackbarOpen: true,
+            snackbarText: text,
+            snackbarItemToCopy: itemToCopy
+        });
+    };
+
     render() {
         const { classes } = this.props;
         return (
@@ -25,15 +58,46 @@ class Main extends Component {
                 <Switch>
                     <Route exact path='/' render={() => (
                         this.props.isSignedIn ?
-                            (<ListParties partyTokens={this.props.partyTokens} />) :
+                            (<ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>) :
                             (<Home />))} />
                     <Route path='/login' render={() => <Login isSignedIn={this.props.isSignedIn}/>} />
-                    <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens}/>} />
+                    <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>} />
                     <Route path='/profile' component={Profile} />
                     <Route path='/schedule' component={Schedule} />
                     <Route path='/about' component={About} />
                     <Route path='/privacy' component={Privacy} />
                 </Switch>
+                <div>
+                    <Snackbar
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right'
+                        }}
+                        open={this.state.snackbarOpen}
+                        autoHideDuration={5000}
+                        onClose={this.handleSnackbarClose}
+                        message={<span>{this.state.snackbarText}</span>}
+                        action={
+                            <div key="action">
+                                {this.state.snackbarItemToCopy &&
+                                <CopyToClipboard text={this.state.snackbarItemToCopy}>
+                                    <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
+                                        COPY TOKEN
+                                    </Button>
+                                </CopyToClipboard>
+                                }
+                                <IconButton
+                                    key="close"
+                                    aria-label="Close"
+                                    color="secondary"
+                                    className={classes.close}
+                                    onClick={this.handleSnackbarClose}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </div>
+                        }
+                    />
+                </div>
             </main>
         );
     }

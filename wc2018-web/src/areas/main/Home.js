@@ -16,7 +16,7 @@ const styles = {
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.classes = props;
+        this.classes = props.classes;
     }
     render() {
         return (

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles/index";
-import axios from 'axios';
+import api from '../../util/API';
 import firebase from 'firebase/app';
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card";
@@ -8,6 +8,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
 
 const styles = {
@@ -18,7 +19,8 @@ const styles = {
         fontSize: 14
     },
     partyNameField: {
-        marginRight: 10
+        marginRight: 10,
+        width: '100%'
     },
     createPartyButton: {
         marginTop: 10
@@ -46,7 +48,7 @@ class CreateParty extends Component {
 
     createParty = () => {
         const fbUser = firebase.auth().currentUser;
-        if(fbUser && this.state.partyName) {
+        if (fbUser && this.state.partyName) {
             this.setState({createButtonDisabled: true});
             const partyInfo = {
                 "name": this.state.partyName,
@@ -55,31 +57,30 @@ class CreateParty extends Component {
                     name: fbUser.displayName
                 }
             };
-            axios
-                .post(`https://wc2018-api.faziodev.org/party/`, partyInfo)
-                .then((resp) => {
-                    if(resp.status === 200 && resp.data){
-                        this.setState({"createdPartyToken": resp.data.token});
-                        this.handleClose();
-                    }
+            api.createParty(partyInfo)
+                .then((party) => {
+                    this.setState({"createdPartyToken": party.token, "createButtonDisabled": false});
+                    this.handleClose();
                 })
-                .catch((err) => console.error(`Error creating party.`, err));
+                .catch((err) => {
+                    //TODO: Add a notification to the user if the create request fails.
+                });
         }
     };
 
     handleClose = () => {
-        this.props.onClose(this.state.createdPartyToken);
+        this.props.onClose('create', this.state.partyName, this.state.createdPartyToken);
         this.setState({"partyName": "", "createdPartyToken": ""});
     };
 
     handleKeyPress = (event) => {
-        if((event.keyCode || event.charCode) === 13) {
+        if ((event.keyCode || event.charCode) === 13) {
             this.createParty();
         }
     };
 
     render() {
-        const { classes, onClose, selectedValue, ...other } = this.props;
+        const {classes, onClose, selectedValue, ...other} = this.props;
         return (
             <Dialog onClose={this.handleClose} {...other}>
                 <Card className={classes.card}>
@@ -87,6 +88,10 @@ class CreateParty extends Component {
                         className={classes.title}
                         title="Create a Party"/>
                     <CardContent>
+                        <Typography variant="body2">
+                            Create a new party here!<br/>
+                            Invite your friends with the six character code that is generated after creation.
+                        </Typography>
                         <TextField
                             id="partyName"
                             label="Name"

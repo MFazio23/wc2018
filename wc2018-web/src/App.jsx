@@ -3,7 +3,7 @@ import './App.css';
 import TopNav from "./areas/main/TopNav";
 import Main from "./areas/main/Main";
 import firebase from 'firebase/app';
-import axios from 'axios';
+import api from './util/API';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRM6r7nG4QWwiiJxBbpH_ohdgl8JfvJ58",
@@ -31,11 +31,17 @@ class App extends Component {
         this.unregisterAuthObserver = firebase.auth().onAuthStateChanged((user) => {
             this.setState({isSignedIn: !!user});
 
-            if(user) this.loadPartyTokensForUser();
+            if (user) {
+                api.updateAuthToken().then(() => {
+                    this.loadPartyTokensForUser();
+                }).catch(() => {
+                    //TODO: What happens if this fails?
+                });
+            }
         });
 
         firebase.database().ref(`/stats`).on('value', (snap) => {
-            this.setState({"stats": snap.val()});
+            this.setState({"stats": this.processStats(snap.val())});
         });
     }
 
@@ -44,15 +50,11 @@ class App extends Component {
     }
 
     loadPartyTokensForUser = () => {
-        if(firebase.auth().currentUser) {
+        if (firebase.auth().currentUser) {
             const userId = firebase.auth().currentUser.uid;
-            console.log("UID", userId);
-            axios
-                .get(`https://wc2018-api.faziodev.org/party/tokens?userId=${userId}`)
-                .then((resp) => {
-                    this.setState({"partyTokens": resp.data})
-                })
-                .catch((err) => console.error("Error loading user parties.", err));
+            api.loadPartyTokensForUser(userId).then((tokens) => {
+                this.setState({"partyTokens": tokens})
+            });
         }
     };
 
@@ -60,11 +62,22 @@ class App extends Component {
         this.setState({"partyTokens": []});
     };
 
+    processStats = (stats) => {
+        const newStats = {};
+
+        Object.keys(stats).forEach(teamId => {
+            const team = stats[teamId];
+            newStats[teamId] = Object.assign(team, {p: team.g + team.d + team.cs * 2 + team.w * 3});
+        });
+
+        return newStats;
+    };
+
     render() {
         return (
             <div>
                 <TopNav isSignedIn={this.state.isSignedIn} onSignOut={this.onSignOut}/>
-                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats} />
+                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats}/>
             </div>
         );
     }

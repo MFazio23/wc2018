@@ -60,6 +60,7 @@ class ListParties extends Component {
     bindParty = (partyToken) => {
         const ref = firebase.database().ref(`${this.baseFirebasePath}${partyToken}`);
         const callback = ref.on('value', (snap) => {
+            //TODO: Change this to use `update` method
             let newParties = this.state.parties;
             newParties[partyToken] = snap.val();
             this.setState({"parties": newParties});
@@ -76,9 +77,22 @@ class ListParties extends Component {
         this.setState({[buttonProp]: true});
     };
 
-    handleClose = (partyToken) => {
+    handleClose = (source, partyName, partyToken) => {
         this.setState({"joinOpen": false, "createOpen": false});
-        if(partyToken) this.bindParty(partyToken);
+        if(partyToken) {
+            this.bindParty(partyToken);
+            if(source) {
+                this.props.onDisplaySnackbar(
+                    source === 'join' ?
+                        `Party '${partyName}' joined.` :
+                        `Party created.  Use token ${partyToken} to invite your friends!`,
+                    source === 'create' ? partyToken : null);
+            }
+        }
+    };
+
+    handleStopTrackingParty = (partyToken) => {
+        this.unbindParty(partyToken);
     };
 
     render() {
@@ -87,7 +101,6 @@ class ListParties extends Component {
             <div>
                 <Card>
                     <CardHeader
-                        /*className={this.classes.title}*/
                         title="New Party"
                         subheader="Join an existing party or create a new one" />
                     <CardContent>
@@ -95,7 +108,15 @@ class ListParties extends Component {
                         <Button className={classes.partyButton} size="large" variant="raised" color="primary" onClick={() => this.partyButtonClicked('createOpen')}>Create Party</Button>
                     </CardContent>
                 </Card>
-                <div>{Object.keys(this.state.parties).map((partyToken) => <PartyCard key={partyToken} party={this.state.parties[partyToken]} />)}</div>
+                <div>
+                    {
+                        Object
+                            .keys(this.state.parties)
+                            .map((partyToken) => <PartyCard key={partyToken}
+                                                            party={this.state.parties[partyToken]}
+                                                            stats={this.props.stats}
+                                                            onDisplaySnackbar={this.props.onDisplaySnackbar}
+                                                            onStopTrackingParty={this.handleStopTrackingParty} />)}</div>
                 <JoinParty open={this.state.joinOpen} onClose={this.handleClose} />
                 <CreateParty open={this.state.createOpen} onClose={this.handleClose} />
             </div>

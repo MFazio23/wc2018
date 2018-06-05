@@ -9,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
+import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
 
 const styles = {
@@ -87,15 +88,15 @@ class JoinParty extends Component {
                 .then((resp) => {
                     if (resp.status === 200) {
                         this.setState({"joinedPartyToken": partyToken});
-                        this.handleClose();
+                        this.handleClose(this.state.selectedParty.name);
                     }
                 })
                 .catch((err) => console.error(`Error joining party [${partyToken}]`, err));
         }
     };
 
-    handleClose = () => {
-        this.props.onClose(this.state.joinedPartyToken);
+    handleClose = (partyName) => {
+        this.props.onClose('join', partyName, this.state.joinedPartyToken);
         this.setState({
             "partyToken": "",
             "selectedParty": null,
@@ -119,6 +120,9 @@ class JoinParty extends Component {
                         className={classes.title}
                         title="Join a Party"/>
                     <CardContent>
+                        <Typography variant="body2">
+                            Ask your friend for their six-character party code to join their party!
+                        </Typography>
                         <TextField
                             id="partyToken"
                             label="Party Token"
