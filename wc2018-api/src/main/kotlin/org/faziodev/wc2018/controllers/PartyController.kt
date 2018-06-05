@@ -55,6 +55,11 @@ class PartyController {
         return this.partyService.addUserToParty(partyToken, user)
     }
 
+    @PostMapping("/{partyToken}/users")
+    fun addMultipleUsersToParty(@PathVariable("partyToken") partyToken: String, @RequestBody users: List<PartyUser>) {
+        return this.partyService.addMultipleUsersToParty(partyToken, users)
+    }
+
     @DeleteMapping("/{partyToken}/user")
     fun removeUserFromParty(@PathVariable("partyToken") partyToken: String, @RequestParam(name = "userId") userId: String): Party? {
         return this.partyService.removeUserFromParty(partyToken, userId)
