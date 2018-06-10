@@ -57,7 +57,7 @@ class PartyUserSummary extends Component {
     };
 
     handleClose = (deletedUserName) => {
-        if(deletedUserName) this.props.onDisplaySnackbar(`${deletedUserName} has been removed from the group.`);
+        if(deletedUserName) this.props.onDisplaySnackbar(`${deletedUserName} has been removed from the party.`);
         else this.setState({summaryOpen: false});
     };
 

@@ -59,7 +59,7 @@ class Main extends Component {
                     <Route exact path='/' render={() => (
                         this.props.isSignedIn ?
                             (<ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>) :
-                            (<Home />))} />
+                            (<Home isSignedIn={this.props.isSignedIn}/>))} />
                     <Route path='/login' render={() => <Login isSignedIn={this.props.isSignedIn}/>} />
                     <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>} />
                     <Route path='/profile' component={Profile} />

@@ -12,6 +12,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import SettingsIcon from "@material-ui/icons/Settings";
 import PartyUserSummary from "./PartyUserSummary";
 import withRoot from "../../WithRoot";
+import api from "../../util/API"
+import DraftPartyDialog from "./DraftPartyDialog";
 
 const styles = {
     card: {
@@ -25,11 +27,12 @@ const styles = {
 class PartyCard extends Component {
     constructor(props) {
         super(props);
-        this.classes = props;
+        this.classes = props.classes;
 
         this.state = {
             menuAnchor: null,
             settingsMenuOpen: false,
+            draftDialogOpen: false,
             users: []
         };
     }
@@ -60,7 +63,7 @@ class PartyCard extends Component {
         this.setState({settingsMenuOpen: false});
     };
 
-    handleDeleteGroup = () => {
+    handleDeleteParty = () => {
         if(this.props.party && this.props.party.token) {
             const token = this.props.party.token;
             const name = this.props.party.name;
@@ -77,13 +80,28 @@ class PartyCard extends Component {
         }
     };
 
-    handleUpdateScore = () => {
+    handleLeaveParty = () => {
+        api.removeUserFromParty(this.props.party.token, firebase.auth().currentUser.uid).then((resp) => {
+            this.props.onDisplaySnackbar(`You have been removed from the party "${this.props.party.name}".`);
+            this.props.onStopTrackingParty(this.props.party.token);
+        }).catch((err) => {
+            this.props.onDisplaySnackbar('There was an issue removing you from the party. Please try again.');
+        });
+        this.setState({settingsMenuOpen: false});
+    };
 
+    handleDraftParty = () => {
+        this.setState({draftDialogOpen: true, settingsMenuOpen: false});
+    };
+
+    handleDraftPartyDialogClose = () => {
+        this.setState({draftDialogOpen: false});
     };
 
     render() {
         if(!this.props.party) return '';
         const users = this.loadListOfUsers();
+        const isPartyOwner = this.props.party.owner.id === firebase.auth().currentUser.uid;
         return (
             <div>
                 <Card className={this.classes.card}>
@@ -101,7 +119,7 @@ class PartyCard extends Component {
                                 partyUser={user}
                                 isPartyOwner={this.props.party.owner.id === user.id}
                                 onDisplaySnackbar={this.props.onDisplaySnackbar}
-                                currentUserIsPartyOwner={this.props.party.owner.id === firebase.auth().currentUser.uid}/>)}
+                                currentUserIsPartyOwner={isPartyOwner}/>)}
                         </List>
                     </CardContent>
                 </Card>
@@ -117,8 +135,15 @@ class PartyCard extends Component {
                     }}
                     open={this.state.settingsMenuOpen}
                     onClose={this.handleMenuClose}>
-                    <MenuItem onClick={this.handleDeleteGroup}>Delete Group</MenuItem>
+                    {isPartyOwner && users.length > 1 && <MenuItem onClick={this.handleDraftParty}>Distribute Teams</MenuItem>}
+                    {!isPartyOwner && <MenuItem onClick={this.handleLeaveParty}>Leave Party</MenuItem>}
+                    {isPartyOwner && <MenuItem onClick={this.handleDeleteParty}>Delete Party</MenuItem>}
                 </Menu>
+                <DraftPartyDialog
+                    party={this.props.party}
+                    open={this.state.draftDialogOpen}
+                    onDisplaySnackbar={this.props.onDisplaySnackbar}
+                    onClose={this.handleDraftPartyDialogClose}/>
             </div>
         );
     }

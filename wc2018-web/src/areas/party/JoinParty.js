@@ -51,7 +51,7 @@ class JoinParty extends Component {
             this.setState({
                 [name]: text,
                 "partyNotFound": false,
-                "joinGroupSuccess": false
+                "joinPartySuccess": false
             });
         }
     };

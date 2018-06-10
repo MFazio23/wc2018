@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles/index";
 import firebase from 'firebase/app';
 import 'firebase/database';
@@ -38,7 +38,7 @@ class ListParties extends Component {
     }
 
     componentDidUpdate() {
-        if(this.state.lastPartyTokens !== this.props.partyTokens) {
+        if (this.state.lastPartyTokens !== this.props.partyTokens) {
             this.updateBindings();
         }
     }
@@ -51,7 +51,7 @@ class ListParties extends Component {
 
     unbindParty = (partyToken) => {
         const firebaseParty = this.state.firebaseParties[partyToken];
-        if(firebaseParty) {
+        if (firebaseParty) {
             const ref = firebaseParty.ref;
             ref.off('value', firebaseParty.callback);
         }
@@ -79,9 +79,9 @@ class ListParties extends Component {
 
     handleClose = (source, partyName, partyToken) => {
         this.setState({"joinOpen": false, "createOpen": false});
-        if(partyToken) {
+        if (partyToken) {
             this.bindParty(partyToken);
-            if(source) {
+            if (source) {
                 this.props.onDisplaySnackbar(
                     source === 'join' ?
                         `Party '${partyName}' joined.` :
@@ -92,33 +92,34 @@ class ListParties extends Component {
     };
 
     handleStopTrackingParty = (partyToken) => {
+        console.log("Unbinding party ", partyToken);
         this.unbindParty(partyToken);
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
+        const parties = Object.keys(this.state.parties).map(partyToken => this.state.parties[partyToken]).filter(party => !!party.users[firebase.auth().currentUser.uid]);
         return (
             <div>
                 <Card>
                     <CardHeader
                         title="New Party"
-                        subheader="Join an existing party or create a new one" />
+                        subheader="Join an existing party or create a new one"/>
                     <CardContent>
-                        <Button className={classes.partyButton} size="large" variant="raised" color="primary" onClick={() => this.partyButtonClicked('joinOpen')}>Join Party</Button>
-                        <Button className={classes.partyButton} size="large" variant="raised" color="primary" onClick={() => this.partyButtonClicked('createOpen')}>Create Party</Button>
+                        <Button className={classes.partyButton} size="large" variant="raised" color="primary"
+                                onClick={() => this.partyButtonClicked('joinOpen')}>Join Party</Button>
+                        <Button className={classes.partyButton} size="large" variant="raised" color="primary"
+                                onClick={() => this.partyButtonClicked('createOpen')}>Create Party</Button>
                     </CardContent>
                 </Card>
                 <div>
-                    {
-                        Object
-                            .keys(this.state.parties)
-                            .map((partyToken) => <PartyCard key={partyToken}
-                                                            party={this.state.parties[partyToken]}
-                                                            stats={this.props.stats}
-                                                            onDisplaySnackbar={this.props.onDisplaySnackbar}
-                                                            onStopTrackingParty={this.handleStopTrackingParty} />)}</div>
-                <JoinParty open={this.state.joinOpen} onClose={this.handleClose} />
-                <CreateParty open={this.state.createOpen} onClose={this.handleClose} />
+                    {parties.map((party) => <PartyCard key={party.token}
+                                                       party={party}
+                                                       stats={this.props.stats}
+                                                       onDisplaySnackbar={this.props.onDisplaySnackbar}
+                                                       onStopTrackingParty={this.handleStopTrackingParty}/>)}</div>
+                <JoinParty open={this.state.joinOpen} onClose={this.handleClose}/>
+                <CreateParty open={this.state.createOpen} onClose={this.handleClose}/>
             </div>
         );
     }

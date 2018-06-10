@@ -2,6 +2,7 @@ import axios from 'axios';
 import firebase from 'firebase/app';
 
 const api = axios.create({
+    //baseURL: 'http://localhost:8080/'
     baseURL: 'https://wc2018-api.faziodev.org/'
 });
 
@@ -59,13 +60,23 @@ export default {
         });
     },
     removeUserFromParty: (partyToken, userId) => {
-        console.log("About to delete ", userId, partyToken);
         return new Promise((res, rej) => {
             api.delete(`party/${partyToken}/user?userId=${userId}`).then((resp) => {
                 console.log("Deleted user:", resp);
                 res();
             }).catch((err) => {
                 console.error(`Error deleting user [${userId}] from party [${partyToken}]`);
+                rej(err);
+            });
+
+        });
+    },
+    draftParty: (partyToken, rankingType, teamsPerUser) => {
+        return new Promise((res, rej) => {
+            api.post(`party/${partyToken}/teams?rankingType=${rankingType}&teamsPerUser=${teamsPerUser}`).then((resp) => {
+                res(resp);
+            }).catch((err) => {
+                console.error(`Error drafting teams for party [${partyToken}]`);
                 rej(err);
             });
 

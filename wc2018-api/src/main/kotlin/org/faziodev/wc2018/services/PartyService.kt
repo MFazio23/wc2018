@@ -102,13 +102,17 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
         if(teamsPerUser <= 0 || users.size * teamsPerUser > 32) return party
         val rankedTeams = this.rankingsService.getTeamsWithRankings() ?: return party
 
-        val sortedTeams = rankedTeams.sortedBy { it.rankings?.get(rankingType) }.subList(0, users.size * teamsPerUser)
+        val sortedTeams = rankedTeams
+            .sortedBy { it.rankings?.get(rankingType) }
+            .subList(0, users.size * teamsPerUser)
         val splitTeams = sortedTeams
             .chunked(users.size, { it -> it.shuffled()})
             .filter { it.size == users.size }
         val usersWithTeams = users.values
             .withIndex()
-            .associate {(ind, user) -> user.id to user.copy(teams = splitTeams.associate {teamList -> teamList[ind].id to teamList[ind].name})}
+            .associate {(ind, user) -> user.id to user.copy(
+                teams = splitTeams.associate {teamList -> teamList[ind].id to teamList[ind].name})
+            }
 
         val partyWithTeams = party.copy(users = usersWithTeams)
 
