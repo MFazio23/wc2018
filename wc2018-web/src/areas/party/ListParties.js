@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import CardHeader from "@material-ui/core/CardHeader"
+import CircularProgress from '@material-ui/core/CircularProgress';
 import PartyCard from "./PartyCard";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
@@ -15,6 +16,10 @@ import withRoot from "../../WithRoot";
 const styles = {
     partyButton: {
         marginRight: 10
+    },
+    loadingSpinner: {
+        paddingTop: 50,
+        textAlign: 'center'
     }
 };
 
@@ -113,6 +118,9 @@ class ListParties extends Component {
                     </CardContent>
                 </Card>
                 <div>
+                    {(!parties || parties.length <= 0) && <div className={classes.loadingSpinner}>
+                        <CircularProgress className={classes.progress} size={100} />
+                    </div>}
                     {parties.map((party) => <PartyCard key={party.token}
                                                        party={party}
                                                        stats={this.props.stats}
