@@ -93,11 +93,11 @@ class DraftPartyDialog extends Component {
             api.draftParty(token, this.state.rankingType, this.state.teamsPerUser)
                 .then((resp) => {
                     if (resp.status === 200) {
-                        this.props.onDisplaySnackbar(`Party '${name}' has drafted successfully!`);
+                        this.props.onDisplaySnackbar(`Party '${name}' has distributed teams successfully!`);
                         this.handleClose();
                     }
                 })
-                .catch((err) => console.error(`Error drafting teams for party [${name}]`, err))
+                .catch((err) => console.error(`Error distributing teams for party [${name}]`, err))
                 .finally(() => this.setState({draftButtonDisabled: false}));
         }
     };
@@ -139,7 +139,7 @@ class DraftPartyDialog extends Component {
         return (
             <Dialog onClose={this.handleClose} open={this.props.open}>
                 <Card className={this.classes.card}>
-                    <DialogTitle>Draft Party <i>{this.props.party.name}</i></DialogTitle>
+                    <DialogTitle>Distribute Teams for Party <i>{this.props.party.name}</i></DialogTitle>
                     <DialogContent>
                         <Typography variant="body2">
                             Distribute the teams for your party!
@@ -192,7 +192,7 @@ class DraftPartyDialog extends Component {
                         <DialogActions>
                             <Button className={this.classes.draftPartyButton} color="primary"
                                     onClick={this.handleDraftParty}
-                                    disabled={this.state.draftButtonDisabled}>Draft</Button>
+                                    disabled={this.state.draftButtonDisabled}>Distribute Teams</Button>
                         </DialogActions>
                     </DialogContent>
                 </Card>
