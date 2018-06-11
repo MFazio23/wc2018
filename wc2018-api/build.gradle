@@ -50,6 +50,7 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion" // Required for Kotlin integration
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion"
     compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-security'
     compile 'com.google.firebase:firebase-admin:5.11.0'
     compile "com.github.kittinunf.fuel:fuel:$fuelVersion" //for JVM
     compile "com.github.kittinunf.fuel:fuel-jackson:$fuelVersion" //for Jackson support

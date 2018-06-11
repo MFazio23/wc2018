@@ -5,11 +5,14 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import org.faziodev.wc2018.types.Team
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.core.io.ClassPathResource
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 
-@SpringBootApplication
+@SpringBootApplication(/*exclude = [SecurityAutoConfiguration::class]*/)
+@EnableGlobalMethodSecurity(securedEnabled = true)
 class WC2018ApiApp(baseDBUrl: String = "https://wc2018-2bad0.firebaseio.com") {
     final var googleCredentials: GoogleCredentials
 

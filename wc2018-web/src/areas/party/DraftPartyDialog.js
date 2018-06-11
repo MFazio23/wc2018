@@ -32,7 +32,10 @@ const styles = theme => ({
         marginTop: 10
     },
     description: {
-        lineHeight: '2em'
+        lineHeight: '2em',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: 12
+        }
     },
     selects: {
         [theme.breakpoints.up('sm')]: {
