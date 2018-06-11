@@ -12,6 +12,7 @@ import PartyCard from "./PartyCard";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
 import withRoot from "../../WithRoot";
+import {Config} from "../../util/Config";
 
 const styles = {
     partyButton: {
@@ -24,7 +25,7 @@ const styles = {
 };
 
 class ListParties extends Component {
-    baseFirebasePath = '/parties/';
+    baseFirebasePath = `${Config.firebaseEnv}/parties`;
 
     constructor(props) {
         super(props);
@@ -63,7 +64,7 @@ class ListParties extends Component {
     };
 
     bindParty = (partyToken) => {
-        const ref = firebase.database().ref(`${this.baseFirebasePath}${partyToken}`);
+        const ref = firebase.database().ref(`${this.baseFirebasePath}/${partyToken}`);
         const callback = ref.on('value', (snap) => {
             //TODO: Change this to use `update` method
             let newParties = this.state.parties;
@@ -103,7 +104,10 @@ class ListParties extends Component {
 
     render() {
         const {classes} = this.props;
-        const parties = Object.keys(this.state.parties).map(partyToken => this.state.parties[partyToken]).filter(party => !!party.users[firebase.auth().currentUser.uid]);
+        const parties = Object
+            .keys(this.state.parties)
+            .map(partyToken => this.state.parties[partyToken])
+            .filter(party => party && !!party.users[firebase.auth().currentUser.uid]);
         return (
             <div>
                 <Card>

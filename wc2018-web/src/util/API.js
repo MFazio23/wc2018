@@ -1,9 +1,9 @@
 import axios from 'axios';
 import firebase from 'firebase/app';
+import {Config} from "./Config";
 
 const api = axios.create({
-    //baseURL: 'http://localhost:8080/'
-    baseURL: 'https://wc2018-api.faziodev.org/'
+    baseURL: Config.apiBaseUrl
 });
 
 export default {
@@ -42,6 +42,28 @@ export default {
             }
         });
     },
+    getPartyByToken: (partyToken, currentUserId) => {
+        return new Promise((res, rej) => {
+            if (partyToken.match(/^[A-Z0-9]{6}$/)) {
+                axios
+                    .get(`${Config.firebaseBaseUrl}/parties/${partyToken}.json`)
+                    .then((resp) => {
+                        if (resp.data) {
+                            res({
+                                "selectedParty": resp.data,
+                                "alreadyInParty": !!resp.data.users[currentUserId]
+                            });
+                        } else {
+                            rej();
+                        }
+                    })
+                    .catch((err) => {
+                        console.error(`Error loading entered party [${partyToken}].`, err)
+                        rej();
+                    });
+            }
+        });
+    },
     createParty: (partyInfo) => {
         return new Promise((res, rej) => {
             api
@@ -57,6 +79,18 @@ export default {
                     console.error(`Error creating party.`, err);
                     rej();
                 });
+        });
+    },
+    joinParty: (partyToken, currentUser) => {
+        return new Promise((res, rej) => {
+            api
+                .post(`party/${partyToken}/user`, currentUser)
+                .then((resp) => {
+                    if (resp.status === 200) {
+                        res(partyToken);
+                    }
+                })
+                .catch((err) => console.error(`Error joining party [${partyToken}]`, err));
         });
     },
     removeUserFromParty: (partyToken, userId) => {
@@ -80,6 +114,20 @@ export default {
                 rej(err);
             });
 
+        });
+    },
+    deleteParty: (partyToken) => {
+        return new Promise((res, rej) => {
+            api
+                .delete(`party/${partyToken}`)
+                .then((resp) => {
+                    if (resp.status === 200) {
+                        res(partyToken);
+                    }
+                })
+                .catch((err) => {
+                    rej(err);
+                });
         });
     }
 }

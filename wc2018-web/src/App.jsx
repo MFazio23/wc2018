@@ -4,6 +4,7 @@ import TopNav from "./areas/main/TopNav";
 import Main from "./areas/main/Main";
 import firebase from 'firebase/app';
 import api from './util/API';
+import {Config} from "./util/Config";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRM6r7nG4QWwiiJxBbpH_ohdgl8JfvJ58",
@@ -40,7 +41,7 @@ class App extends Component {
             }
         });
 
-        firebase.database().ref(`/stats`).on('value', (snap) => {
+        firebase.database().ref(`${Config.firebaseEnv}/stats`).on('value', (snap) => {
             this.setState({"stats": this.processStats(snap.val())});
         });
     }

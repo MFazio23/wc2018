@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import axios from 'axios';
 import firebase from 'firebase/app';
 import {withStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
@@ -67,14 +66,12 @@ class PartyCard extends Component {
         if(this.props.party && this.props.party.token) {
             const token = this.props.party.token;
             const name = this.props.party.name;
-            axios
-                .delete(`https://wc2018-api.faziodev.org/party/${token}`)
+            api
+                .deleteParty(token)
                 .then((resp) => {
-                    if (resp.status === 200) {
-                        this.props.onStopTrackingParty(token);
-                        this.props.onDisplaySnackbar(`Party '${name}' deleted.`);
-                        this.handleMenuClose();
-                    }
+                    this.props.onStopTrackingParty(token);
+                    this.props.onDisplaySnackbar(`Party '${name}' deleted.`);
+                    this.handleMenuClose();
                 })
                 .catch((err) => console.error(`Error deleting party [${name}]`, err));
         }

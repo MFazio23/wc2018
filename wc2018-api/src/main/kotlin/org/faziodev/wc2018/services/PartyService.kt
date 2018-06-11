@@ -10,6 +10,7 @@ import org.faziodev.wc2018.types.firebase.FirebaseParty
 import org.faziodev.wc2018.types.firebase.FirebasePartyOwner
 import org.faziodev.wc2018.types.firebase.FirebasePartyUser
 import org.faziodev.wc2018.types.firebase.FirebaseTeam
+import org.faziodev.wc2018.util.Config
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -24,7 +25,7 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
 
     fun getAllParties(): List<Party>? {
         val accessToken = this.getAccessToken()
-        val (_, _, result) = "https://wc2018-2bad0.firebaseio.com/parties.json"
+        val (_, _, result) = "$firebaseBaseUrl/parties.json"
             .httpGet(listOf("access_token" to accessToken))
             .responseObject<Map<String, Party>>()
 
@@ -56,13 +57,13 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
     }
 
     fun deleteParty(partyToken: String) {
-        val partyRef = this.database.getReference("parties/$partyToken")
+        val partyRef = this.database.getReference("${Config.firebaseEnv}/parties/$partyToken")
         partyRef.removeValueAsync()
     }
 
     fun getPartyByToken(partyToken: String) : Party? {
         val accessToken = this.getAccessToken()
-        val (_, _, result) = "https://wc2018-2bad0.firebaseio.com/parties/$partyToken.json"
+        val (_, _, result) = "$firebaseBaseUrl/parties/$partyToken.json"
             .httpGet(listOf("access_token" to accessToken))
             .responseString()
 
@@ -128,7 +129,7 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
             PartyOwner(party.owner.id, party.owner.name),
             party.users)//?.mapValues {FirebasePartyUser(it.value.name, it.value.teams?.mapValues { it.value.name })})
 
-        val partyRef = this.database.getReference("parties/${party.token}")
+        val partyRef = this.database.getReference("${Config.firebaseEnv}/parties/${party.token}")
         partyRef.setValueAsync(firebaseParty).get()
     }
 }

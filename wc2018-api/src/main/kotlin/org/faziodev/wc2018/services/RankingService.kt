@@ -35,7 +35,7 @@ class RankingService(@Autowired val teams: List<Team>, googleCredentials: Google
 
     fun getRankings() : Map<String, Ranking> {
         val accessToken = this.getAccessToken()
-        val (_, _, result) = "https://wc2018-2bad0.firebaseio.com/rankings.json"
+        val (_, _, result) = "$firebaseBaseUrl/rankings.json"
             .httpGet(listOf("access_token" to accessToken))
             .responseObject<Map<String, Ranking>>()
 

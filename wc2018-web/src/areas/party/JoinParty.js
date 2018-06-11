@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles/index";
-import axios from 'axios';
 import firebase from 'firebase/app';
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card";
@@ -11,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
+import Api from "../../util/API";
 
 const styles = {
     card: {
@@ -40,7 +40,8 @@ class JoinParty extends Component {
             "partyToken": "",
             "partyNotFound": false,
             "joinedPartyToken": "",
-            "alreadyInParty": false
+            "alreadyInParty": false,
+            "joinPartyButtonDisabled": true
         }
     }
 
@@ -58,20 +59,18 @@ class JoinParty extends Component {
 
     getParty = () => {
         if (this.state.partyToken.match(/^[A-Z0-9]{6}$/)) {
-            axios
-                .get(`https://wc2018-2bad0.firebaseio.com/parties/${this.state.partyToken}.json`)
+            Api
+                .getPartyByToken(this.state.partyToken, firebase.auth().currentUser.uid)
                 .then((resp) => {
-                    if (resp.data) {
-                        this.setState({
-                            "selectedParty": resp.data,
-                            "alreadyInParty": !!resp.data.users[firebase.auth().currentUser.uid]
-                        });
-
-                    } else {
-                        this.setState({"partyNotFound": true});
-                    }
+                    this.setState({
+                        selectedParty: resp.selectedParty,
+                        alreadyInParty: resp.alreadyInParty,
+                        joinPartyButtonDisabled: false
+                    })
                 })
-                .catch((err) => console.error(`Error loading entered party [${this.state.partyToken}].`, err));
+                .catch((err) => {
+                    this.setState({"partyNotFound": true});
+                });
         }
     };
 
@@ -83,15 +82,14 @@ class JoinParty extends Component {
                 id: fbUser.uid,
                 name: fbUser.displayName
             };
-            axios
-                .post(`https://wc2018-api.faziodev.org/party/${partyToken}/user`, currentUser)
+            this.setState({joinPartyButtonDisabled: true});
+            Api
+                .joinParty(partyToken, currentUser)
                 .then((resp) => {
-                    if (resp.status === 200) {
-                        this.setState({"joinedPartyToken": partyToken});
-                        this.handleClose(this.state.selectedParty.name);
-                    }
+                    this.setState({"joinedPartyToken": partyToken});
+                    this.handleClose(this.state.selectedParty.name);
                 })
-                .catch((err) => console.error(`Error joining party [${partyToken}]`, err));
+                .catch((err) => this.setState({joinPartyButtonDisabled: false}));
         }
     };
 
@@ -146,7 +144,7 @@ class JoinParty extends Component {
                                                  title={this.state.alreadyInParty ? "You are already a member of this party." : ""}>
                                             <div>
                                                 <Button className={classes.joinPartyButton} variant="raised" color="primary"
-                                                    disabled={this.state.alreadyInParty}
+                                                    disabled={this.state.joinPartyButtonDisabled || this.state.alreadyInParty}
                                                     onClick={this.joinParty}>Join</Button>
                                             </div>
                                         </Tooltip>
