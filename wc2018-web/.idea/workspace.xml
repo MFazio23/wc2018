@@ -2,18 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8597bab6-e720-4895-91d2-3517734b8ea3" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/util/Config.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/util/Config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/WC2018ApiApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/WC2018ApiApp.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/BaseApiService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/BaseApiService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/PartyService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/PartyService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/RankingService.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../wc2018-api/src/main/kotlin/org/faziodev/wc2018/services/RankingService.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/areas/party/JoinParty.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/areas/party/JoinParty.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/areas/party/ListParties.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/areas/party/ListParties.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/areas/party/PartyCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/areas/party/PartyCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/API.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/API.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/Config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/Config.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,107 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PartyCard.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/party/PartyCard.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="358">
-              <caret line="75" column="86" lean-forward="true" selection-start-line="75" selection-start-column="86" selection-end-line="75" selection-end-column="86" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TopNav.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/main/TopNav.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="540">
-              <caret line="40" column="64" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Login.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/login/Login.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2">
-              <caret line="51" lean-forward="true" selection-start-line="51" selection-end-line="51" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="JoinParty.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/areas/party/JoinParty.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="520">
-              <caret line="91" column="77" selection-start-line="91" selection-start-column="77" selection-end-line="91" selection-end-column="77" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Config.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Config.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/util/Config.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="80">
-              <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ListParties.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/party/ListParties.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="64" lean-forward="true" selection-start-line="64" selection-end-line="64" />
-              <folding>
-                <element signature="e#0#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/main/Main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-482">
-              <caret line="56" column="43" selection-start-line="56" selection-start-column="43" selection-end-line="56" selection-end-column="43" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Home.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/areas/main/Home.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1040">
-              <caret line="52" column="74" selection-start-line="52" selection-start-column="74" selection-end-line="52" selection-end-column="74" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="App.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="44" column="68" selection-start-line="44" selection-start-column="68" selection-end-line="44" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="API.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/util/API.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="127" column="33" selection-start-line="127" selection-start-column="33" selection-end-line="127" selection-end-column="33" />
+            <state relative-caret-position="120">
+              <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -237,12 +130,12 @@
         <option value="$PROJECT_DIR$/src/areas/party/DraftPartyDialog.js" />
         <option value="$PROJECT_DIR$/src/areas/main/Home.js" />
         <option value="$PROJECT_DIR$/src/areas/main/Main.js" />
-        <option value="$PROJECT_DIR$/src/util/Config.js" />
         <option value="$PROJECT_DIR$/src/util/API.js" />
         <option value="$PROJECT_DIR$/src/areas/party/PartyCard.js" />
         <option value="$PROJECT_DIR$/src/App.jsx" />
         <option value="$PROJECT_DIR$/src/areas/party/ListParties.js" />
         <option value="$PROJECT_DIR$/src/areas/party/JoinParty.js" />
+        <option value="$PROJECT_DIR$/src/util/Config.js" />
       </list>
     </option>
   </component>
@@ -393,7 +286,7 @@
       <workItem from="1528169895344" duration="15024000" />
       <workItem from="1528307850332" duration="4566000" />
       <workItem from="1528387261672" duration="50000" />
-      <workItem from="1528668025460" duration="6251000" />
+      <workItem from="1528668025460" duration="6609000" />
     </task>
     <task id="LOCAL-00001" summary="Add spinner when loading parties">
       <created>1528670551857</created>
@@ -406,7 +299,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184771000" />
+    <option name="totallyTimeSpent" value="185129000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -805,13 +698,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/util/Config.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="80">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="460">
@@ -831,11 +717,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/areas/party/JoinParty.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="91" column="77" selection-start-line="91" selection-start-column="77" selection-end-line="91" selection-end-column="77" />
+        <state relative-caret-position="1660">
+          <caret line="83" column="14" lean-forward="true" selection-start-line="83" selection-start-column="14" selection-end-line="83" selection-end-column="14" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/util/Config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
         </state>
       </provider>
     </entry>
