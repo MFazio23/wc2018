@@ -20,7 +20,7 @@ const styles = {
     finePrint: {}
 };
 
-class Home extends Component {
+class Overview extends Component {
     constructor(props) {
         super(props);
         this.classes = props.classes;
@@ -48,10 +48,10 @@ class Home extends Component {
                         /*action={<IconButton><SettingsIcon /></IconButton>}*//>
                     <CardContent>
                         {!firebase.auth().currentUser &&
-                        <div className={this.classes.loginButtonDiv}>
-                            <Button size="large" color="primary" variant="raised"
-                                    onClick={this.handleLoginButtonClicked}>Login</Button>
-                        </div>
+                            <div className={this.classes.loginButtonDiv}>
+                                <Button size="large" color="primary" variant="raised"
+                                        onClick={this.handleLoginButtonClicked}>Login</Button>
+                            </div>
                         }
                         <p>
                             WC2018 is a fantasy game for the 2018 FIFA World Cup Russia™.<br/>
@@ -60,8 +60,8 @@ class Home extends Component {
                             Log in above to get started!<br/>
                             <br />
                         </p>
-                        <Typography variant="subheading">
-                            Steps to join a party:
+                        <Typography variant="subheading" color="primary">
+                            Joining a Party
                         </Typography>
                         <ol>
                             <li>Log In above</li>
@@ -70,8 +70,8 @@ class Home extends Component {
                             <li>Search for your friend's party</li>
                             <li>Click "JOIN"!</li>
                         </ol>
-                        <Typography variant="subheading">
-                            Steps to create your own party:
+                        <Typography variant="subheading" color="primary">
+                            Creating a Party
                         </Typography>
                         <ol>
                             <li>Log In above</li>
@@ -80,6 +80,18 @@ class Home extends Component {
                             <li>Click "CREATE"</li>
                             <li>Send your party's six-character code to your friends!</li>
                         </ol>
+                        <Typography variant="subheading" color="primary">
+                            Scoring
+                        </Typography>
+                        <div>
+                            Players are awarded points for their teams' performance in the World Cup.<br />
+                            <ul>
+                                <li>Each win: 3 points</li>
+                                <li>Each clean sheet (shutout): 2 points</li>
+                                <li>Each draw (tie): 1 point</li>
+                                <li>Each goal scored: 1 point</li>
+                            </ul>
+                        </div>
                         <Typography className={this.classes.finePrint} color="textSecondary">
                             WC2018 is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
                         </Typography>
@@ -94,4 +106,4 @@ class Home extends Component {
     }
 }
 
-export default withRoot(withStyles(styles)(Home));
+export default withRoot(withStyles(styles)(Overview));

@@ -84,6 +84,7 @@ class TopNav extends Component {
                                 open={open}
                                 onClose={() => this.handleClose("profileMenu")}>
                                 {/*<MenuItem component={Link} to='/profile' onClick={() => this.handleClose("profileMenu")}>Profile</MenuItem>*/}
+                                <MenuItem component={Link} to='/overview' onClick={() => this.handleClose("profileMenu")}>Overview</MenuItem>
                                 <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </Menu>
                         </div>

@@ -6,13 +6,12 @@ import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import CloseIcon from '@material-ui/icons/Close'
 import Login from "../login/Login";
-import Home from "./Home"
+import Overview from "./Overview"
 import Profile from "../profile/Profile";
 import Schedule from "../schedule/Schedule";
 import ListParties from "../party/ListParties";
 import withRoot from "../../WithRoot";
 import Privacy from "../about/Privacy";
-import About from "../about/About";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 
 const styles = theme => ({
@@ -59,12 +58,12 @@ class Main extends Component {
                     <Route exact path='/' render={() => (
                         this.props.isSignedIn ?
                             (<ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>) :
-                            (<Home isSignedIn={this.props.isSignedIn}/>))} />
+                            (<Overview isSignedIn={this.props.isSignedIn}/>))} />
                     <Route path='/login' render={() => <Login isSignedIn={this.props.isSignedIn}/>} />
+                    <Route path='/overview' render={() => <Overview isSignedIn={this.props.isSignedIn}/>} />
                     <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>} />
                     <Route path='/profile' component={Profile} />
                     <Route path='/schedule' component={Schedule} />
-                    <Route path='/about' component={About} />
                     <Route path='/privacy' component={Privacy} />
                 </Switch>
                 <div>
