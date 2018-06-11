@@ -14,7 +14,13 @@ import JoinParty from "./JoinParty";
 import withRoot from "../../WithRoot";
 import {Config} from "../../util/Config";
 
-const styles = {
+const styles = theme => ({
+    partyButtons: {
+        [theme.breakpoints.down('xs')]: {
+            display: 'flex',
+            justifyContent: 'space-around'
+        }
+    },
     partyButton: {
         marginRight: 10
     },
@@ -22,7 +28,7 @@ const styles = {
         paddingTop: 50,
         textAlign: 'center'
     }
-};
+});
 
 class ListParties extends Component {
     baseFirebasePath = `${Config.firebaseEnv}/parties`;
@@ -114,7 +120,7 @@ class ListParties extends Component {
                     <CardHeader
                         title="New Party"
                         subheader="Join an existing party or create a new one"/>
-                    <CardContent>
+                    <CardContent className={classes.partyButtons}>
                         <Button className={classes.partyButton} size="large" variant="raised" color="primary"
                                 onClick={() => this.partyButtonClicked('joinOpen')}>Join Party</Button>
                         <Button className={classes.partyButton} size="large" variant="raised" color="primary"
