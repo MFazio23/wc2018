@@ -1,6 +1,8 @@
 package org.faziodev.wc2018.security
 
 import com.google.firebase.auth.FirebaseAuth
+import org.springframework.core.annotation.Order
+import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
 import javax.servlet.FilterChain
 import javax.servlet.ServletRequest
@@ -8,6 +10,8 @@ import javax.servlet.ServletResponse
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
+@Component
+@Order(1)
 class FirebaseFilter : GenericFilterBean() {
 
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {

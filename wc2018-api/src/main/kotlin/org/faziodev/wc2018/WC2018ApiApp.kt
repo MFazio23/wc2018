@@ -9,10 +9,9 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import org.springframework.core.io.ClassPathResource
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 
-@SpringBootApplication(/*exclude = [SecurityAutoConfiguration::class]*/)
-@EnableGlobalMethodSecurity(securedEnabled = true)
+@SpringBootApplication(exclude = [SecurityAutoConfiguration::class])
+//@EnableGlobalMethodSecurity(securedEnabled = true)
 class WC2018ApiApp(baseDBUrl: String = "https://wc2018-2bad0.firebaseio.com") {
     final var googleCredentials: GoogleCredentials
 
