@@ -58,7 +58,28 @@ class Home extends Component {
                             Join one or more groups, get your teams, and compete against your friends!<br/>
                             You can create and join groups of anywhere from 2-32 people.<br/>
                             Log in above to get started!<br/>
+                            <br />
                         </p>
+                        <Typography variant="subheading">
+                            Steps to join a party:
+                        </Typography>
+                        <ol>
+                            <li>Log In above</li>
+                            <li>Get your six-character party token from your friend</li>
+                            <li>Click the "JOIN PARTY" button</li>
+                            <li>Search for your friend's party</li>
+                            <li>Click "JOIN"!</li>
+                        </ol>
+                        <Typography variant="subheading">
+                            Steps to create your own party:
+                        </Typography>
+                        <ol>
+                            <li>Log In above</li>
+                            <li>Click the "CREATE PARTY" button</li>
+                            <li>Give your party a name</li>
+                            <li>Click "CREATE"</li>
+                            <li>Send your party's six-character code to your friends!</li>
+                        </ol>
                         <Typography className={this.classes.finePrint} color="textSecondary">
                             WC2018 is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
                         </Typography>
