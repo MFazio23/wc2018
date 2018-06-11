@@ -8,6 +8,7 @@ import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
 import firebase from "firebase/app";
 import Login from "../login/Login";
+import GA from 'react-ga';
 
 const styles = {
     card: {},
@@ -31,6 +32,11 @@ class Overview extends Component {
     }
 
     handleLoginButtonClicked = () => {
+        GA.event({
+            category: 'user',
+            action: 'logInButtonClicked',
+            label: 'overviewPage'
+        });
         this.setState({loginOpen: true});
     };
 

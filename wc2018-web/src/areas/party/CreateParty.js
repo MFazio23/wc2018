@@ -10,6 +10,7 @@ import Dialog from "@material-ui/core/Dialog";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
+import GA from 'react-ga';
 
 const styles = {
     card: {
@@ -61,9 +62,20 @@ class CreateParty extends Component {
                 .then((party) => {
                     this.setState({"createdPartyToken": party.token, "createButtonDisabled": false});
                     this.handleClose();
+
+                    GA.event({
+                        category: 'party',
+                        action: 'created',
+                        label: party.token
+                    });
                 })
                 .catch((err) => {
                     //TODO: Add a notification to the user if the create request fails.
+
+                    GA.event({
+                        category: 'partyError',
+                        action: 'create'
+                    });
                 });
         }
     };

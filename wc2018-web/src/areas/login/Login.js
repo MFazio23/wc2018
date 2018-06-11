@@ -6,6 +6,7 @@ import {withStyles} from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import withRoot from "../../WithRoot";
+import GA from 'react-ga';
 
 const styles = {
     bullet: {
@@ -33,7 +34,12 @@ const uiConfig = {
         firebase.auth.TwitterAuthProvider.PROVIDER_ID
     ],
     callbacks: {
-        signInSuccessWithAuthResult: () => false,
+        signInSuccessWithAuthResult: (result) => {
+            GA.event({
+                category: 'user',
+                action: 'signIn'
+            });
+        },
     },
 };
 

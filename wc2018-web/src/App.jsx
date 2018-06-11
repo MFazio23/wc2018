@@ -5,6 +5,7 @@ import Main from "./areas/main/Main";
 import firebase from 'firebase/app';
 import api from './util/API';
 import {Config} from "./util/Config";
+import GA from 'react-ga';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBRM6r7nG4QWwiiJxBbpH_ohdgl8JfvJ58",
@@ -33,6 +34,7 @@ class App extends Component {
             this.setState({isSignedIn: !!user});
 
             if (user) {
+                GA.set({userId: user.uid});
                 api.updateAuthToken().then(() => {
                     this.loadPartyTokensForUser();
                 }).catch(() => {
@@ -84,6 +86,4 @@ class App extends Component {
     }
 }
 
-// hey i'm gonna save here
-// i'm still here
 export default App;

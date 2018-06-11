@@ -14,6 +14,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
+import GA from 'react-ga';
 
 const styles = theme => ({
     partyNameField: {
@@ -95,9 +96,22 @@ class DraftPartyDialog extends Component {
                     if (resp.status === 200) {
                         this.props.onDisplaySnackbar(`Party '${name}' has distributed teams successfully!`);
                         this.handleClose();
+
+                        GA.event({
+                            category: 'party',
+                            action: 'distribute',
+                            label: `${token}|${this.state.rankingType}|${this.state.teamsPerUser}`
+                        });
                     }
                 })
-                .catch((err) => console.error(`Error distributing teams for party [${name}]`, err))
+                .catch((err) => {
+                    console.error(`Error distributing teams for party [${name}]`, err);
+
+                    GA.event({
+                        category: 'partyError',
+                        action: 'distribute'
+                    });
+                })
                 .finally(() => this.setState({draftButtonDisabled: false}));
         }
     };

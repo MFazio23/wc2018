@@ -13,6 +13,7 @@ import PartyUserSummary from "./PartyUserSummary";
 import withRoot from "../../WithRoot";
 import api from "../../util/API"
 import DraftPartyDialog from "./DraftPartyDialog";
+import GA from 'react-ga';
 
 const styles = {
     card: {
@@ -72,8 +73,21 @@ class PartyCard extends Component {
                     this.props.onStopTrackingParty(token);
                     this.props.onDisplaySnackbar(`Party '${name}' deleted.`);
                     this.handleMenuClose();
+                    GA.event({
+                        category: 'party',
+                        action: 'deleted',
+                        label: this.state.token
+                    });
                 })
-                .catch((err) => console.error(`Error deleting party [${name}]`, err));
+                .catch((err) => {
+                    console.error(`Error deleting party [${name}]`, err);
+
+                    GA.event({
+                        category: 'partyError',
+                        action: 'delete',
+                        label: this.state.token
+                    });
+                });
         }
     };
 
@@ -81,8 +95,18 @@ class PartyCard extends Component {
         api.removeUserFromParty(this.props.party.token, firebase.auth().currentUser.uid).then((resp) => {
             this.props.onDisplaySnackbar(`You have been removed from the party "${this.props.party.name}".`);
             this.props.onStopTrackingParty(this.props.party.token);
+            GA.event({
+                category: 'party',
+                action: 'left',
+                label: this.state.token
+            });
         }).catch((err) => {
             this.props.onDisplaySnackbar('There was an issue removing you from the party. Please try again.');
+            GA.event({
+                category: 'partyError',
+                action: 'leave',
+                label: this.state.token
+            });
         });
         this.setState({settingsMenuOpen: false});
     };

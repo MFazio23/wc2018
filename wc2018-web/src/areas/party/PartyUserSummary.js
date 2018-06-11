@@ -9,6 +9,7 @@ import "flag-icon-css/css/flag-icon.min.css"
 import teams from "../../util/Teams";
 import withRoot from "../../WithRoot";
 import PartyUserDialog from "./PartyUserDialog";
+import GA from 'react-ga';
 
 const styles = theme => ({
     card: {
@@ -43,6 +44,12 @@ class PartyUserSummary extends Component {
 
     partyUserClicked = () => {
         this.setState({summaryOpen: true});
+
+        GA.event({
+            category: 'party',
+            action: 'userClicked',
+            label: `${this.props.partyToken}|${this.props.partyUser.id}`
+        });
     };
 
     getFlag = (teamId) => {

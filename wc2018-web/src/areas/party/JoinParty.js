@@ -11,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import withRoot from "../../WithRoot";
 import Api from "../../util/API";
+import GA from 'react-ga';
 
 const styles = {
     card: {
@@ -66,10 +67,20 @@ class JoinParty extends Component {
                         selectedParty: resp.selectedParty,
                         alreadyInParty: resp.alreadyInParty,
                         joinPartyButtonDisabled: false
-                    })
+                    });
+                    GA.event({
+                        category: 'party',
+                        action: 'search',
+                        label: `${this.state.token}|${resp.alreadyInParty}`
+                    });
                 })
                 .catch((err) => {
                     this.setState({"partyNotFound": true});
+                    GA.event({
+                        category: 'partyError',
+                        action: 'search',
+                        label: this.state.token
+                    });
                 });
         }
     };
@@ -88,8 +99,21 @@ class JoinParty extends Component {
                 .then((resp) => {
                     this.setState({"joinedPartyToken": partyToken});
                     this.handleClose(this.state.selectedParty.name);
+
+                    GA.event({
+                        category: 'party',
+                        action: 'joined',
+                        label: `${this.state.token}`
+                    });
                 })
-                .catch((err) => this.setState({joinPartyButtonDisabled: false}));
+                .catch((err) => {
+                    this.setState({joinPartyButtonDisabled: false});
+                    GA.event({
+                        category: 'partyError',
+                        action: 'join',
+                        label: this.state.token
+                    });
+                });
         }
     };
 

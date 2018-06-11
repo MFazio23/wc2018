@@ -17,6 +17,7 @@ import "flag-icon-css/css/flag-icon.min.css"
 import teams from "../../util/Teams";
 import withRoot from "../../WithRoot";
 import Grid from "@material-ui/core/Grid/Grid";
+import GA from 'react-ga';
 
 const styles = theme => ({
     dialogCard: {
@@ -78,6 +79,13 @@ class PartyUserSummary extends Component {
         this.setState({removeButtonDisabled: true});
         api.removeUserFromParty(this.props.partyToken, this.props.partyUser.id).then((result) => {
             this.props.onClose(this.props.partyUser.name);
+
+            GA.event({
+                category: 'party',
+                action: 'removedUser',
+                label: `${this.props.partyToken}|${this.props.partyUser.id}`
+            });
+
         }).catch(() => {
             this.setState({removeButtonDisabled: false})
             //TODO: WHat happens if this fails?

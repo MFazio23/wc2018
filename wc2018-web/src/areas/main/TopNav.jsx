@@ -12,6 +12,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Login from "../login/Login";
+import GA from 'react-ga';
 
 const styles = theme => ({
     root: {
@@ -38,7 +39,14 @@ class TopNav extends Component {
 
     handleClick = (event, source) => {
         if(source === 'userMenu') this.setState({anchorEl: event.currentTarget});
-        if(source === 'login') this.setState({loginOpen: true});
+        if(source === 'login') {
+            this.setState({loginOpen: true});
+            GA.event({
+                category: 'user',
+                action: 'logInButtonClicked',
+                label: 'topNav'
+            });
+        }
     };
 
     handleClose = (closedItem) => {
@@ -50,6 +58,10 @@ class TopNav extends Component {
         firebase.auth().signOut();
         this.props.onSignOut();
         this.handleClose("profileMenu");
+        GA.event({
+            category: 'user',
+            action: 'signOut'
+        });
     };
 
     render() {
@@ -85,6 +97,7 @@ class TopNav extends Component {
                                 onClose={() => this.handleClose("profileMenu")}>
                                 {/*<MenuItem component={Link} to='/profile' onClick={() => this.handleClose("profileMenu")}>Profile</MenuItem>*/}
                                 <MenuItem component={Link} to='/overview' onClick={() => this.handleClose("profileMenu")}>Overview</MenuItem>
+                                <MenuItem component={Link} to='/privacy' onClick={() => this.handleClose("profileMenu")}>Privacy/Terms</MenuItem>
                                 <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </Menu>
                         </div>
