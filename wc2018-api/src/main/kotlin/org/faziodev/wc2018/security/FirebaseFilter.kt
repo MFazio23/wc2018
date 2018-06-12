@@ -14,12 +14,16 @@ import javax.servlet.http.HttpServletResponse
 @Order(1)
 class FirebaseFilter : GenericFilterBean() {
 
+    val pathsToIgnore: List<String> = listOf(
+        "/status"
+    )
+
     override fun doFilter(request: ServletRequest?, response: ServletResponse?, chain: FilterChain?) {
 
         val httpServletRequest: HttpServletRequest = request as HttpServletRequest
         val httpServletResponse: HttpServletResponse = response as HttpServletResponse
 
-        if (httpServletRequest.method != "OPTIONS") {
+        if (httpServletRequest.method != "OPTIONS" && validatePath(httpServletRequest.servletPath)) {
             val authHeader = httpServletRequest.getHeader("Authorization")
 
             if (authHeader == null) {
@@ -39,5 +43,9 @@ class FirebaseFilter : GenericFilterBean() {
         }
 
         chain?.doFilter(request, response)
+    }
+
+    fun validatePath(path: String): Boolean {
+        return !this.pathsToIgnore.contains(path)
     }
 }
