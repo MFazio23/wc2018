@@ -140,7 +140,15 @@ class PartyUserSummary extends Component {
                                         </ListItem>
                                     )}
                                 </List> :
-                                <Typography className={this.classes.notYetDrafted}>This party has not drafted yet.</Typography>
+                                <Typography className={this.classes.notYetDrafted}>
+                                    This party has not yet distributed teams. <br/>
+                                    {this.props.currentUserIsPartyOwner ?
+                                        <span>
+                                            You can distribute teams by clicking the gear icon and choosing 'Distribute teams'.<br />
+                                            Note that you must have at least two players in a party to distribute teams.
+                                        </span> :
+                                        "Ask your party's owner to do this!"}
+                                </Typography>
                             }
 
                             <Grid container>

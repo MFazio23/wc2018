@@ -8,6 +8,7 @@ import Card from "@material-ui/core/Card"
 import CardContent from "@material-ui/core/CardContent"
 import CardHeader from "@material-ui/core/CardHeader"
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 import PartyCard from "./PartyCard";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
@@ -27,7 +28,8 @@ const styles = theme => ({
     loadingSpinner: {
         paddingTop: 50,
         textAlign: 'center'
-    }
+    },
+    noPartiesFound: {}
 });
 
 class ListParties extends Component {
@@ -104,7 +106,6 @@ class ListParties extends Component {
     };
 
     handleStopTrackingParty = (partyToken) => {
-        console.log("Unbinding party ", partyToken);
         this.unbindParty(partyToken);
     };
 
@@ -128,8 +129,38 @@ class ListParties extends Component {
                     </CardContent>
                 </Card>
                 <div>
-                    {(!parties || parties.length <= 0) && <div className={classes.loadingSpinner}>
+                    {this.props.partyTokensAreLoading && <div className={classes.loadingSpinner}>
                         <CircularProgress className={classes.progress} size={100} />
+                    </div>}
+                    {!this.props.partyTokensAreLoading && (!parties || parties.length <= 0) && <div>
+                        <Card>
+                            <CardHeader
+                                title="No Parties Found"
+                                subheader='You are not part of any parties!  Click "JOIN PARTY" or "CREATE PARTY" above.'/>
+                            <CardContent className={classes.noPartiesFound}>
+                                <Typography variant="body2">
+
+                                </Typography>
+                                <Typography variant="subheading" color="primary">
+                                    Joining a Party
+                                </Typography>
+                                <ol>
+                                    <li>Get your six-character party token from your friend</li>
+                                    <li>Click the "JOIN PARTY" button</li>
+                                    <li>Search for your friend's party</li>
+                                    <li>Click "JOIN"!</li>
+                                </ol>
+                                <Typography variant="subheading" color="primary">
+                                    Creating a Party
+                                </Typography>
+                                <ol>
+                                    <li>Click the "CREATE PARTY" button</li>
+                                    <li>Give your party a name</li>
+                                    <li>Click "CREATE"</li>
+                                    <li>Send your party's six-character code to your friends!</li>
+                                </ol>
+                            </CardContent>
+                        </Card>
                     </div>}
                     {parties.map((party) => <PartyCard key={party.token}
                                                        party={party}

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {Route, Switch} from "react-router-dom";
-import { withStyles } from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
@@ -51,20 +51,24 @@ class Main extends Component {
     };
 
     render() {
-        const { classes } = this.props;
+        const {classes} = this.props;
         return (
             <main className={classes.main}>
                 <Switch>
                     <Route exact path='/' render={() => (
                         this.props.isSignedIn ?
-                            (<ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>) :
-                            (<Overview isSignedIn={this.props.isSignedIn}/>))} />
-                    <Route path='/login' render={() => <Login isSignedIn={this.props.isSignedIn}/>} />
-                    <Route path='/overview' render={() => <Overview isSignedIn={this.props.isSignedIn}/>} />
-                    <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens} onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}/>} />
-                    <Route path='/profile' component={Profile} />
-                    <Route path='/schedule' component={Schedule} />
-                    <Route path='/privacy' component={Privacy} />
+                            (<ListParties partyTokens={this.props.partyTokens}
+                                          onDisplaySnackbar={this.handleDisplaySnackbar} stats={this.props.stats}
+                                          partyTokensAreLoading={this.props.partyTokensAreLoading}/>) :
+                            (<Overview isSignedIn={this.props.isSignedIn}/>))}/>
+                    <Route path='/login' render={() => <Login isSignedIn={this.props.isSignedIn}/>}/>
+                    <Route path='/overview' render={() => <Overview isSignedIn={this.props.isSignedIn}/>}/>
+                    <Route path='/party' render={() => <ListParties partyTokens={this.props.partyTokens}
+                                                                    onDisplaySnackbar={this.handleDisplaySnackbar}
+                                                                    stats={this.props.stats}/>}/>
+                    <Route path='/profile' component={Profile}/>
+                    <Route path='/schedule' component={Schedule}/>
+                    <Route path='/privacy' component={Privacy}/>
                 </Switch>
                 <div>
                     <Snackbar
@@ -91,7 +95,7 @@ class Main extends Component {
                                     color="secondary"
                                     className={classes.close}
                                     onClick={this.handleSnackbarClose}>
-                                    <CloseIcon />
+                                    <CloseIcon/>
                                 </IconButton>
                             </div>
                         }

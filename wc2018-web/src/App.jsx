@@ -25,7 +25,8 @@ class App extends Component {
         this.state = {
             "isSignedIn": undefined,
             "partyTokens": [],
-            "stats": {}
+            "stats": {},
+            "partyTokensAreLoading": false
         };
     }
 
@@ -35,6 +36,7 @@ class App extends Component {
 
             if (user) {
                 GA.set({userId: user.uid});
+                this.setState({partyTokensAreLoading: true});
                 api.updateAuthToken().then(() => {
                     this.loadPartyTokensForUser();
                 }).catch(() => {
@@ -55,9 +57,15 @@ class App extends Component {
     loadPartyTokensForUser = () => {
         if (firebase.auth().currentUser) {
             const userId = firebase.auth().currentUser.uid;
-            api.loadPartyTokensForUser(userId).then((tokens) => {
-                this.setState({"partyTokens": tokens})
-            });
+            api
+                .loadPartyTokensForUser(userId)
+                .then((tokens) => {
+                    this.setState({"partyTokens": tokens, "partyTokensAreLoading": false})
+                })
+                .catch((err) => {
+                    console.error("Error loading party tokens", err);
+                    this.setState({partyTokensAreLoading: false});
+                });
         }
     };
 
@@ -80,7 +88,8 @@ class App extends Component {
         return (
             <div>
                 <TopNav isSignedIn={this.state.isSignedIn} onSignOut={this.onSignOut}/>
-                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats}/>
+                <Main isSignedIn={this.state.isSignedIn} partyTokens={this.state.partyTokens} stats={this.state.stats}
+                      partyTokensAreLoading={this.state.partyTokensAreLoading}/>
             </div>
         );
     }

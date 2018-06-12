@@ -1,5 +1,5 @@
 
-const firebaseEnv = "test";
+const firebaseEnv = "prod";
 
 export const Config = {
     firebaseEnv: firebaseEnv,
