@@ -73,7 +73,9 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
     fun addUserToParty(partyToken: String, user: PartyUser) {
         val party: Party = this.getPartyByToken(partyToken) ?: return
 
-        this.saveParty(party.copy(users = party.users?.plus(user.id to user)))
+        if(party.users?.count() ?: 0 < 32) {
+            this.saveParty(party.copy(users = party.users?.plus(user.id to user)))
+        }
     }
 
     fun addMultipleUsersToParty(partyToken: String, users: List<PartyUser>) {

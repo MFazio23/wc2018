@@ -20,12 +20,12 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'org.faziodev.wc2018'
-version = '0.0.8-SNAPSHOT'
+version = '1.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 jar {
     baseName = 'wc2018-api'
-    version = '0.0.8-SNAPSHOT'
+    version = '1.0.1-SNAPSHOT'
 }
 
 compileKotlin {

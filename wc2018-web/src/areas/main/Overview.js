@@ -101,10 +101,10 @@ class Overview extends Component {
                         <Typography variant="subheading" color="primary">
                             Team Distribution
                         </Typography>
-                        <div>
-                        Teams are distributed in parties randomly, based on criteria set by the party owner.
-                        Owners choose from three ranking systems (FIFA Rankings, ELO Rankings, and a random ranking) as well as how many teams each player is assigned.
-                        </div>
+                        <p>
+                            Teams are distributed in parties randomly, based on criteria set by the party owner.
+                            Owners choose from three ranking systems (FIFA Rankings, ELO Rankings, and a random ranking) as well as how many teams each player is assigned.
+                        </p>
                         <Typography className={this.classes.finePrint} color="textSecondary">
                             WC2018 is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
                         </Typography>

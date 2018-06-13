@@ -42,6 +42,7 @@ class JoinParty extends Component {
             "partyNotFound": false,
             "joinedPartyToken": "",
             "alreadyInParty": false,
+            "maxUsersInParty": false,
             "joinPartyButtonDisabled": true
         }
     }
@@ -66,6 +67,7 @@ class JoinParty extends Component {
                     this.setState({
                         selectedParty: resp.selectedParty,
                         alreadyInParty: resp.alreadyInParty,
+                        maxUsersInParty: resp.selectedParty.users && Object.keys(resp.selectedParty.users).length === 32,
                         joinPartyButtonDisabled: false
                     });
                     GA.event({
@@ -134,6 +136,7 @@ class JoinParty extends Component {
     };
 
     render() {
+        console.log("JPS", this.state);
         const {classes, onClose, selectedValue, ...other} = this.props;
         return (
             <Dialog onClose={this.handleClose} {...other}>
@@ -153,7 +156,8 @@ class JoinParty extends Component {
                             value={this.state.partyToken}
                             onKeyPress={this.handleKeyPress}
                         />
-                        <Button className={classes.searchPartyButton} variant="raised" color="primary" onClick={this.getParty}>Search</Button>
+                        <Button className={classes.searchPartyButton} variant="raised" color="primary"
+                                onClick={this.getParty}>Search</Button>
                         <div>
                             {this.state.partyNotFound ?
                                 `No parties found for ${this.state.partyToken}` :
@@ -165,11 +169,12 @@ class JoinParty extends Component {
                                         <div>Owner: {this.state.selectedParty.owner.name}</div>
                                         <div>Total Users: {Object.keys(this.state.selectedParty.users).length}</div>
                                         <Tooltip placement="top"
-                                                 title={this.state.alreadyInParty ? "You are already a member of this party." : ""}>
+                                                 title={this.state.alreadyInParty ? "You are already a member of this party." : (this.state.maxUsersInParty ? "There are already 32 people in this party." : "")}>
                                             <div>
-                                                <Button className={classes.joinPartyButton} variant="raised" color="primary"
-                                                    disabled={this.state.joinPartyButtonDisabled || this.state.alreadyInParty}
-                                                    onClick={this.joinParty}>Join</Button>
+                                                <Button className={classes.joinPartyButton} variant="raised"
+                                                        color="primary"
+                                                        disabled={this.state.joinPartyButtonDisabled || this.state.alreadyInParty || this.state.maxUsersInParty}
+                                                        onClick={this.joinParty}>Join</Button>
                                             </div>
                                         </Tooltip>
                                     </div> : ''
