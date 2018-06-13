@@ -23,6 +23,9 @@ Players are awarded points for their teams' performance in the World Cup.
 * Each draw (tie): 1 point
 * Each goal scored: 1 point
 
+## Team Distribution
+Teams are distributed in parties randomly, based on criteria set by the party owner.  Owners choose from three ranking systems (FIFA Rankings, ELO Rankings, and a random ranking) as well as how many teams each player is assigned.
+
 ## Privacy
 Normally, this would some huge blob of legalese that nobody would read.
 
