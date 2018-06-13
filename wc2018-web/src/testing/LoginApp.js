@@ -79,7 +79,6 @@ class LoginApp extends React.Component {
      * @inheritDoc
      */
     render() {
-        console.log("Login APp");
         return (
             <div className={styles.container}>
                 <div className={styles.logo}>

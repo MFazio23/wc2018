@@ -136,7 +136,6 @@ class JoinParty extends Component {
     };
 
     render() {
-        console.log("JPS", this.state);
         const {classes, onClose, selectedValue, ...other} = this.props;
         return (
             <Dialog onClose={this.handleClose} {...other}>

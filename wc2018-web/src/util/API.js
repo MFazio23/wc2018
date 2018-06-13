@@ -96,7 +96,6 @@ export default {
     removeUserFromParty: (partyToken, userId) => {
         return new Promise((res, rej) => {
             api.delete(`party/${partyToken}/user?userId=${userId}`).then((resp) => {
-                console.log("Deleted user:", resp);
                 res();
             }).catch((err) => {
                 console.error(`Error deleting user [${userId}] from party [${partyToken}]`);
