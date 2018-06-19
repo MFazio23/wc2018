@@ -13,6 +13,8 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 @Service
 class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCredentials) : BaseApiService(googleCredentials) {
@@ -82,6 +84,10 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
 
         val scoreRef = this.database.getReference("${Config.firebaseEnv}/stats")
         scoreRef.setValueAsync(stats).get()
+
+        this.database.getReference("${Config.firebaseEnv}/statsLastUpdated").setValueAsync(
+            LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
+        )
 
         return stats.toMap()
     }
