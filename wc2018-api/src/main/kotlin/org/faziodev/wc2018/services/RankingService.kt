@@ -6,6 +6,8 @@ import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.database.FirebaseDatabase
 import org.faziodev.wc2018.types.Ranking
 import org.faziodev.wc2018.types.Team
+import org.faziodev.wc2018.types.firebase.FirebaseRanking
+import org.faziodev.wc2018.util.Config
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -22,9 +24,10 @@ class RankingService(@Autowired val teams: List<Team>, googleCredentials: Google
         val fifa = this.loadFIFARankings()
 
         val rankings: Map<String, Ranking> = this.teams.associate { it.id to Ranking(it.name, fifa[it.id], elo[it.id])}
+        val fbRankings: Map<String, FirebaseRanking> = rankings.mapValues {(_, ranking) -> FirebaseRanking.convertFromRanking(ranking) }
 
-        val rankingRef = this.database.getReference("rankings")
-        rankingRef.setValueAsync(rankings).get()
+        val rankingRef = this.database.getReference("${Config.firebaseEnv}/rankings")
+        rankingRef.setValueAsync(fbRankings).get()
     }
 
     fun getTeamsWithRankings() : List<Team>? {

@@ -101,7 +101,6 @@ export default {
                 console.error(`Error deleting user [${userId}] from party [${partyToken}]`);
                 rej(err);
             });
-
         });
     },
     draftParty: (partyToken, rankingType, teamsPerUser) => {
