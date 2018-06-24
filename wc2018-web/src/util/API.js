@@ -127,5 +127,13 @@ export default {
                     rej(err);
                 });
         });
+    },
+    getRankings: () => {
+        return new Promise((res, rej) => {
+            api
+                .get(`rankings`)
+                .then ((resp) => resp.data ? res(resp.data) : res({}))
+                .catch((err) => rej(err))
+        });
     }
 }

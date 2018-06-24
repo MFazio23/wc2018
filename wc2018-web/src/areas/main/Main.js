@@ -13,6 +13,7 @@ import ListParties from "../party/ListParties";
 import withRoot from "../../WithRoot";
 import Privacy from "../about/Privacy";
 import {CopyToClipboard} from "react-copy-to-clipboard";
+import Rankings from "../about/Rankings";
 
 const styles = theme => ({
     close: {
@@ -69,6 +70,7 @@ class Main extends Component {
                     <Route path='/profile' component={Profile}/>
                     <Route path='/schedule' component={Schedule}/>
                     <Route path='/privacy' component={Privacy}/>
+                    <Route path='/rankings' render={() => <Rankings stats={this.props.stats} />} />
                 </Switch>
                 <div>
                     <Snackbar
