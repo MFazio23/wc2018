@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse
 class FirebaseFilter : GenericFilterBean() {
 
     val pathsToIgnore: List<String> = listOf(
+        "/rankings",
         "/status",
         "/scores"
     )

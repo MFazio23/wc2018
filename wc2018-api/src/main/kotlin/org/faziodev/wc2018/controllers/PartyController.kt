@@ -4,6 +4,7 @@ import org.faziodev.wc2018.services.PartyService
 import org.faziodev.wc2018.types.PartyUser
 import org.faziodev.wc2018.types.Party
 import org.faziodev.wc2018.types.RankingType
+import org.faziodev.wc2018.types.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -72,6 +73,11 @@ class PartyController {
         @RequestParam(name = "teamsPerUser") teamsPerUser: Int): Party? {
 
         return this.partyService.distributeTeamsForParty(partyToken, rankingType, teamsPerUser)
+    }
+
+    @GetMapping("/{partyToken}/teams")
+    fun getRemainingTeamsForParty(@PathVariable("partyToken") partyToken: String): List<Team> {
+        return this.partyService.getRemainingTeamsForParty(partyToken)
     }
 
     @GetMapping("token")

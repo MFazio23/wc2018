@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseApiService(googleCredentials) {
+class PartyService(@Autowired val teams: List<Team>, @Autowired val googleCredentials: GoogleCredentials) : BaseApiService(googleCredentials) {
 
     private val validPartyTokenCharacters = "ABCDEFGHIJKLMNPQRSTUVWXYZ123456789".toList()
     private val partyTokenLength = 6
@@ -109,7 +109,7 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
             .sortedBy { it.rankings?.get(rankingType) }
             .subList(0, users.size * teamsPerUser)
         val splitTeams = sortedTeams
-            .chunked(users.size, { it -> it.shuffled()})
+            .chunked(users.size) { it -> it.shuffled()}
             .filter { it.size == users.size }
         val usersWithTeams = users.values
             .withIndex()
@@ -133,5 +133,17 @@ class PartyService(@Autowired val googleCredentials: GoogleCredentials) : BaseAp
 
         val partyRef = this.database.getReference("${Config.firebaseEnv}/parties/${party.token}")
         partyRef.setValueAsync(firebaseParty).get()
+    }
+
+    fun getRemainingTeamsForParty(partyToken: String): List<Team> {
+        val partyUsers: List<PartyUser> =
+            this.getPartyByToken(partyToken)
+                ?.users
+                ?.values
+                ?.filter {it.teams != null } ?: return listOf()
+
+        val teams: List<String> = partyUsers.flatMap { it.teams?.values ?: listOf() }
+
+        return this.teams.filter { !teams.contains(it.name)}.shuffled()
     }
 }
