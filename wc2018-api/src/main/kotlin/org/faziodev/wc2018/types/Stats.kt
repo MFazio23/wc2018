@@ -1,6 +1,6 @@
 package org.faziodev.wc2018.types
 
-data class Stats(val cs: Int, val d: Int, val g: Int, val w: Int, val eliminated: Boolean = false) {
+data class Stats(val cs: Int = 0, val d: Int = 0, val g: Int = 0, val w: Int = 0, val eliminated: Boolean = false) {
     operator fun plus(other: Stats): Stats {
         return Stats(
             this.cs + other.cs,

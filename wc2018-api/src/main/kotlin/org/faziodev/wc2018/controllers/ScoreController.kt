@@ -20,7 +20,7 @@ class ScoreController {
     }
 
     @GetMapping("/stats")
-    fun getStats() {
+    fun getStats(): Map<String, Stats>? {
         return this.scoreService.getStats()
     }
 

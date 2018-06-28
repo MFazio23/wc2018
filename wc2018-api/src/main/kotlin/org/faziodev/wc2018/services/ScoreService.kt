@@ -30,8 +30,13 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
         return result.component1()
     }
 
-    fun getStats() {
+    fun getStats(): Map<String, Stats>? {
+        val accessToken = this.getAccessToken()
+        val (_, _, result) = "$firebaseBaseUrl/stats.json"
+            .httpGet(listOf("access_token" to accessToken))
+            .responseObject<Map<String, Stats>>()
 
+        return result.component1()
     }
 
     fun processStats(): Map<String, Stats> {
@@ -71,7 +76,10 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
     }
 
     fun calculateStats(scores: Map<String, Score>): Map<String, Stats> {
-        val stats: MutableMap<String, Stats> = mutableMapOf()
+        val startingStats: Map<String, Stats> = this.getStats() ?: mapOf()
+
+        val stats: MutableMap<String, Stats>
+            = startingStats.mapValues { Stats(eliminated = it.value.eliminated) }.toMutableMap()
 
         for(score in scores.values) {
             stats.merge(score.homeId, score.calculateHomeStats()) { t: Stats, u: Stats -> t + u}
