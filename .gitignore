@@ -330,3 +330,4 @@ typings/
 
 # End of https://www.gitignore.io/api/node,kotlin,android,intellij,webstorm
 wc2018-api/src/main/resources/wc2018-2bad0-firebase-adminsdk-mjmfq-09f204e686.json
+*.ser
