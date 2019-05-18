@@ -7,6 +7,8 @@ import org.faziodev.wc2018.types.RankingType
 import org.faziodev.wc2018.types.Team
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import kotlin.math.ceil
+import kotlin.math.sqrt
 
 @RestController
 @RequestMapping("/party")

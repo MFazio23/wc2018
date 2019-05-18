@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {withStyles} from '@material-ui/core/styles';
-import update from 'immutability-helper';
 import withRoot from "../../WithRoot";
 import API from "../../util/API"
 import Paper from "@material-ui/core/Paper/Paper";
@@ -10,7 +9,20 @@ import TableRow from "@material-ui/core/TableRow/TableRow";
 import TableCell from "@material-ui/core/TableCell/TableCell";
 import TableBody from "@material-ui/core/TableBody/TableBody";
 
-const styles = {};
+const styles = theme => ({
+    desktopOnly: {
+        [theme.breakpoints.down('sm')]: {
+            display: 'none'
+        }
+    },
+    table: {
+
+    },
+    headerRow: {
+        color: 'white',
+        backgroundColor: theme.palette.secondary.main
+    }
+});
 
 class Rankings extends Component {
     constructor(props) {
@@ -47,17 +59,17 @@ class Rankings extends Component {
 
         return (
             <Paper>
-                <Table>
+                <Table className={this.classes.table}>
                     <TableHead>
-                        <TableRow>
+                        <TableRow className={this.classes.headerRow}>
                             <TableCell>Team Name</TableCell>
                             <TableCell>FIFA</TableCell>
                             <TableCell>ELO</TableCell>
-                            <TableCell>W</TableCell>
-                            <TableCell>D</TableCell>
-                            <TableCell>G</TableCell>
-                            <TableCell>CS</TableCell>
-                            <TableCell><b>P</b></TableCell>
+                            <TableCell className={this.classes.desktopOnly}>W</TableCell>
+                            <TableCell className={this.classes.desktopOnly}>D</TableCell>
+                            <TableCell className={this.classes.desktopOnly}>G</TableCell>
+                            <TableCell className={this.classes.desktopOnly}>CS</TableCell>
+                            <TableCell className={this.classes.desktopOnly}><b>P</b></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -66,15 +78,15 @@ class Rankings extends Component {
                             return (
                                 <TableRow key={key}>
                                     <TableCell component="th" scope="row">
-                                        {ranking.name}
+                                        {ranking.name || key}
                                     </TableCell>
                                     <TableCell numeric>{ranking.fifa}</TableCell>
                                     <TableCell numeric>{ranking.elo}</TableCell>
-                                    <TableCell numeric>{ranking.w}</TableCell>
-                                    <TableCell numeric>{ranking.d}</TableCell>
-                                    <TableCell numeric>{ranking.g}</TableCell>
-                                    <TableCell numeric>{ranking.cs}</TableCell>
-                                    <TableCell numeric><b>{ranking.p}</b></TableCell>
+                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.w}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.d}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.g}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.cs}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} numeric><b>{ranking.p}</b></TableCell>
                                 </TableRow>
                             );
                         })}

@@ -25,7 +25,7 @@ class FirebaseFilter : GenericFilterBean() {
         val httpServletRequest: HttpServletRequest = request as HttpServletRequest
         val httpServletResponse: HttpServletResponse = response as HttpServletResponse
 
-        if (httpServletRequest.method != "OPTIONS" && validatePath(httpServletRequest.servletPath)) {
+        /*if (httpServletRequest.method != "OPTIONS" && validatePath(httpServletRequest.servletPath)) {
             val authHeader = httpServletRequest.getHeader("Authorization")
 
             if (authHeader == null) {
@@ -42,7 +42,7 @@ class FirebaseFilter : GenericFilterBean() {
             }
 
             println("Auth. Header: $authHeader, Method: ${httpServletRequest.method}, Firebase Name: ${firebaseToken.name}, Firebase UID: ${firebaseToken.uid}")
-        }
+        }*/
 
         chain?.doFilter(request, response)
     }

@@ -7,38 +7,44 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.database.*
 
 import org.faziodev.wc2018.R
+import org.faziodev.wc2018.types.api.Rankings
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val PARTY_ID = "partyId"
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [PartyFragment.OnFragmentInteractionListener] interface
+ * [RankingsFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [PartyFragment.newInstance] factory method to
+ * Use the [RankingsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class PartyFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var partyId: String? = null
+class RankingsFragment : TitledFragment() {
     private var listener: OnFragmentInteractionListener? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            partyId = it.getString(PARTY_ID)
-        }
-    }
+    override val title: String = "Rankings"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+
+        val db = FirebaseDatabase.getInstance()
+        db.getReference("prod/rankings").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                val typeIndicator: GenericTypeIndicator<HashMap<String, Rankings>> = GenericTypeIndicator()
+                val value = dataSnapshot.getValue(typeIndicator)
+                println("New value $value")
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                println("Rankings load failed.")
+            }
+        })
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_party, container, false)
+        return inflater.inflate(R.layout.fragment_rankings, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -81,16 +87,10 @@ class PartyFragment : Fragment() {
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @param partyId Identifier of the selected party.
-         * @return A new instance of fragment PartyFragment.
+         * @return A new instance of fragment RankingsFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(partyId: String) =
-            PartyFragment().apply {
-                arguments = Bundle().apply {
-                    putString(PARTY_ID, partyId)
-                }
-            }
+        fun newInstance() = RankingsFragment().apply { }
     }
 }

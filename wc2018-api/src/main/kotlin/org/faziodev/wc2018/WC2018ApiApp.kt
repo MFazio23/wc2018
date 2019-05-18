@@ -4,6 +4,7 @@ import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import org.faziodev.wc2018.types.Team
+import org.faziodev.wc2018.util.Config
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
 import org.springframework.boot.runApplication
@@ -16,7 +17,6 @@ class WC2018ApiApp(baseDBUrl: String = "https://wc2018-2bad0.firebaseio.com") {
     final var googleCredentials: GoogleCredentials
 
     init {
-
         val res = ClassPathResource("wc2018-2bad0-firebase-adminsdk-mjmfq-f0dab11764.json")
         val serviceAccount = res.inputStream
 

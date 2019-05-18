@@ -52,12 +52,12 @@ class PartyUserSummary extends Component {
         });
     };
 
-    getFlag = (teamId) => {
+    getFlag = (teamId, eliminated) => {
         const team = teams[teamId];
 
         if (team) {
             return (<span key={teamId} title={team.name}
-                          className={`user-flag flag-icon flag-icon-${team.isoCode.toLowerCase()}`}/>);
+                          className={`${eliminated ? 'eliminated ' : ''}user-flag flag-icon flag-icon-${team.isoCode.toLowerCase()}`}/>);
         }
 
         return '';
@@ -81,7 +81,7 @@ class PartyUserSummary extends Component {
                                   secondary={`${this.props.partyUser.userScore || 0} points`}/>
                     {this.props.partyUser.teams ? (<ListItemSecondaryAction>
                             <div id={`teams-${this.classes.flags}`} className={this.classes.flags}>
-                                {this.props.partyUser.teams.sort((a, b) => b.stats.p - a.stats.p).map((team) => this.getFlag(team.id))}
+                                {this.props.partyUser.teams.sort((a, b) => b.stats.p - a.stats.p).map((team) => this.getFlag(team.id, team.stats.eliminated))}
                             </div>
                         </ListItemSecondaryAction>) :
                         ''}

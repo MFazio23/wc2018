@@ -1,4 +1,4 @@
-package org.faziodev.wc2018.activites
+package org.faziodev.wc2018.activities
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity

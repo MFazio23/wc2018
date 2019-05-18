@@ -96,12 +96,12 @@ class PartyUserSummary extends Component {
         this.props.onClose();
     };
 
-    getFlag = (teamId) => {
+    getFlag = (teamId, eliminated) => {
         const team = teams[teamId];
 
         if (team) {
             return (<span key={teamId} title={team.name}
-                          className={`user-flag flag-icon flag-icon-${team.isoCode.toLowerCase()}`}/>);
+                          className={`${eliminated ? 'eliminated ' : ''}user-flag flag-icon flag-icon-${team.isoCode.toLowerCase()}`}/>);
         }
 
         return '';
@@ -122,19 +122,15 @@ class PartyUserSummary extends Component {
                                     {this.props.partyUser.teams.sort((a, b) => b.stats.p - a.stats.p).map((team) =>
                                         <ListItem key={team.id}>
                                             <ListItemIcon className={this.classes.teamFlag}>
-                                                {this.getFlag(team.id)}
+                                                {this.getFlag(team.id, team.stats.eliminated)}
                                             </ListItemIcon>
                                             <ListItemText primary={team.name} secondary={`${team.stats.p} points`}/>
                                             <ListItemSecondaryAction className={this.classes.stats}>
                                                 <Grid container>
-                                                    <Grid item xs={3}
-                                                          className={`user-flag flag-icon`}>{`${team.stats.w}W`}</Grid>
-                                                    <Grid item xs={3}
-                                                          className={`user-flag flag-icon`}>{`${team.stats.d}D`}</Grid>
-                                                    <Grid item xs={3}
-                                                          className={`user-flag flag-icon`}>{`${team.stats.g}G`}</Grid>
-                                                    <Grid item xs={3}
-                                                          className={`user-flag flag-icon`}>{`${team.stats.cs}CS`}</Grid>
+                                                    <Grid item xs={3}>{`${team.stats.w}W`}</Grid>
+                                                    <Grid item xs={3}>{`${team.stats.d}D`}</Grid>
+                                                    <Grid item xs={3}>{`${team.stats.g}G`}</Grid>
+                                                    <Grid item xs={3}>{`${team.stats.cs}CS`}</Grid>
                                                 </Grid>
                                             </ListItemSecondaryAction>
                                         </ListItem>

@@ -19,8 +19,6 @@ import java.time.format.DateTimeFormatter
 @Service
 class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCredentials) : BaseApiService(googleCredentials) {
 
-    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-
     fun getScores(): Map<String, Score>? {
         val accessToken = this.getAccessToken()
         val (_, _, result) = "$firebaseBaseUrl/scores.json"
@@ -69,7 +67,7 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
             results[id] = score
         }
 
-        val scoreRef = this.database.getReference("${Config.firebaseEnv}/scores")
+        val scoreRef = getDatabaseReference("scores")
         scoreRef.setValueAsync(results).get()
 
         return results.toMap()
@@ -90,10 +88,10 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
             stats.merge(it.id, Stats(0,0,0,0)) { t, u -> t + u}
         }
 
-        val scoreRef = this.database.getReference("${Config.firebaseEnv}/stats")
+        val scoreRef = getDatabaseReference("stats")
         scoreRef.setValueAsync(stats).get()
 
-        this.database.getReference("${Config.firebaseEnv}/statsLastUpdated").setValueAsync(
+        getDatabaseReference("statsLastUpdated").setValueAsync(
             LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME)
         )
 

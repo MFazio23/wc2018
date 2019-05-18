@@ -3,10 +3,10 @@
     <string name="title_activity_main">WC2018</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="nav_header_title">WC2018</string>
+    <string name="nav_header_subtitle">wc2018@faziodev.org</string>
+    <string name="nav_header_desc">WC2018 Logo</string>
+    <string name="action_logout">Log Out</string>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">1979098249022833</string>
@@ -17,4 +17,39 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="privacy_text">
+        Normally, this would some huge blob of legalese that nobody would read.
+
+        Instead, as I\'m a developer, this is going to be basic.
+
+        The only personal info I get from the site your email address and name (when you log in with a third-party service.)
+        Your email address allows me to connect accounts across Google, Facebook, and Twitter into a single account.
+        Your name allows me to display it for the site/app and any groups.
+
+        I am using Google Analytics to get metrics on the site.  If this makes you uncomfortable, feel free to block it.
+        I\'m just looking for numbers and to see if anyone cares about this thing.
+
+        Past that, I don\'t get any personal info nor do I want it.
+    </string>
+
+    <string name="terms_text">
+        WC2018 is just for fun, should be free, and has no attached warranty.
+
+        Again, this is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
+
+        Soccer ball icon and "Football golden cup trophy" background made by Freepik from www.flaticon.com
+    </string>
+    <string name="overview_team_distribution">
+    Teams are distributed in parties randomly, based on criteria set by the party owner.\nOwners choose from three ranking systems (FIFA Rankings, ELO Rankings, and a random ranking) as well as how many teams each player is assigned.
+    </string>
+    <string name="overview_scoring">
+        Players are awarded points for their teams\' performance in the World Cup.\n
+        • Each win: 3 points\n
+        • Each clean sheet (shutout): 2 points\n
+        • Each draw (tie): 1 point\n
+        • Each goal scored: 1 point\n
+    </string>
+    <string name="overview_summary">WC2018 is a fantasy game for the 2018 FIFA World Cup Russia™.\nJoin one or more groups, get your teams, and compete against your friends!\nYou can create and join groups of anywhere from 2-32 people.\nLog in above to get started!
+    </string>
 </resources>

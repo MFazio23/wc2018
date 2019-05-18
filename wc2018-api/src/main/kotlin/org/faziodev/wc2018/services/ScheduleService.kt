@@ -14,13 +14,8 @@ import org.springframework.stereotype.Service
 @Service
 class ScheduleService(@Autowired val teams: List<Team>, googleCredentials: GoogleCredentials) : BaseApiService(googleCredentials) {
 
-    private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
-
     fun getMiddle(word : String) : String {
-        //val midIndex: Int = java.lang.Math.ceil((word.length / 2).toDouble()).toInt()
         val midIndex: Double = word.length.toDouble() / 2.0
-
-        val concatString: (String, String) -> String = String::plus
 
         return word.substring(java.lang.Math.ceil(midIndex - 1.0).toInt(), java.lang.Math.floor(midIndex).toInt())
 
@@ -46,9 +41,7 @@ class ScheduleService(@Autowired val teams: List<Team>, googleCredentials: Googl
             )
         }
 
-        val scheduleRef = this.database.getReference("schedule")
+        val scheduleRef = getDatabaseReference("schedule")
         scheduleRef.setValueAsync(schedule).get()
     }
-
-
 }
