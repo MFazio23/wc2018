@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 class ListParties extends Component {
-    baseFirebasePath = `${Config.firebaseEnv}/parties`;
+    baseFirebasePath = `${Config.firebaseBasePath}/parties`;
 
     constructor(props) {
         super(props);
@@ -122,9 +122,9 @@ class ListParties extends Component {
                         title="New Party"
                         subheader="Join an existing party or create a new one"/>
                     <CardContent className={classes.partyButtons}>
-                        <Button className={classes.partyButton} size="large" variant="raised" color="primary"
+                        <Button className={classes.partyButton} size="large" variant="contained" color="primary"
                                 onClick={() => this.partyButtonClicked('joinOpen')}>Join Party</Button>
-                        <Button className={classes.partyButton} size="large" variant="raised" color="primary"
+                        <Button className={classes.partyButton} size="large" variant="contained" color="primary"
                                 onClick={() => this.partyButtonClicked('createOpen')}>Create Party</Button>
                     </CardContent>
                 </Card>

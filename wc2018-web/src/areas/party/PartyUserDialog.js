@@ -150,12 +150,12 @@ class PartyUserSummary extends Component {
                             <Grid container>
                                 <Grid item xs={6}>
                                     {this.props.currentUserIsPartyOwner && !this.props.isPartyOwner &&
-                                    <Button className={this.classes.removeUserButton} variant="raised" color="inherit"
+                                    <Button className={this.classes.removeUserButton} variant="contained" color="inherit"
                                             disabled={this.state.removeButtonDisabled}
                                             onClick={this.removeUserFromParty}>Remove from Party</Button>}
                                 </Grid>
                                 <Grid item xs={6} className={this.classes.closeWindow}>
-                                    <Button className={this.classes.closeWindow} variant="raised" color="inherit"
+                                    <Button className={this.classes.closeWindow} variant="contained" color="inherit"
                                             onClick={this.handleClose}>OK</Button>
                                 </Grid>
                             </Grid>

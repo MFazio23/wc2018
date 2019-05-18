@@ -45,7 +45,7 @@ class App extends Component {
             }
         });
 
-        firebase.database().ref(`${Config.firebaseEnv}/stats`).on('value', (snap) => {
+        firebase.database().ref(`${Config.firebaseBasePath}/stats`).on('value', (snap) => {
             this.setState({"stats": this.processStats(snap.val())});
         });
     }
@@ -76,10 +76,12 @@ class App extends Component {
     processStats = (stats) => {
         const newStats = {};
 
-        Object.keys(stats).forEach(teamId => {
-            const team = stats[teamId];
-            newStats[teamId] = Object.assign(team, {p: team.g + team.d + team.cs * 2 + team.w * 3});
-        });
+        if(stats != null) {
+            Object.keys(stats).forEach(teamId => {
+                const team = stats[teamId];
+                newStats[teamId] = Object.assign(team, {p: team.g + team.d + team.cs * 2 + team.w * 3});
+            });
+        }
 
         return newStats;
     };

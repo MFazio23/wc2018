@@ -155,7 +155,7 @@ class JoinParty extends Component {
                             value={this.state.partyToken}
                             onKeyPress={this.handleKeyPress}
                         />
-                        <Button className={classes.searchPartyButton} variant="raised" color="primary"
+                        <Button className={classes.searchPartyButton} variant="contained" color="primary"
                                 onClick={this.getParty}>Search</Button>
                         <div>
                             {this.state.partyNotFound ?
@@ -170,7 +170,7 @@ class JoinParty extends Component {
                                         <Tooltip placement="top"
                                                  title={this.state.alreadyInParty ? "You are already a member of this party." : (this.state.maxUsersInParty ? "There are already 32 people in this party." : "")}>
                                             <div>
-                                                <Button className={classes.joinPartyButton} variant="raised"
+                                                <Button className={classes.joinPartyButton} variant="contained"
                                                         color="primary"
                                                         disabled={this.state.joinPartyButtonDisabled || this.state.alreadyInParty || this.state.maxUsersInParty}
                                                         onClick={this.joinParty}>Join</Button>

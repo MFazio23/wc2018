@@ -17,7 +17,7 @@ class WC2018ApiApp(baseDBUrl: String = "https://wc2018-2bad0.firebaseio.com") {
     final var googleCredentials: GoogleCredentials
 
     init {
-        val res = ClassPathResource("wc2018-2bad0-firebase-adminsdk-mjmfq-f0dab11764.json")
+        val res = ClassPathResource("wc2018-2bad0-firebase-adminsdk-mjmfq-09f204e686.json")
         val serviceAccount = res.inputStream
 
         this.googleCredentials = GoogleCredentials.fromStream(serviceAccount)

@@ -184,7 +184,7 @@ class DraftPartyDialog extends Component {
                                     {this.state.rankingTypeHelperInfo.text}
                                     {this.state.rankingTypeHelperInfo.showLink &&
                                     <a href={this.state.rankingTypeHelperInfo.link}
-                                       target="_blank">{this.state.rankingTypeHelperInfo.linkText}</a>}
+                                       target="_blank" rel="noopener noreferrer">{this.state.rankingTypeHelperInfo.linkText}</a>}
                                 </FormHelperText>
                             </FormControl>
                             <FormControl className={this.classes.formControl}>

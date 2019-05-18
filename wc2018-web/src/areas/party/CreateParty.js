@@ -112,7 +112,7 @@ class CreateParty extends Component {
                             value={this.state.partyName}
                             onKeyPress={this.handleKeyPress}
                         />
-                        <Button className={classes.createPartyButton} variant="raised" color="primary"
+                        <Button className={classes.createPartyButton} variant="contained" color="primary"
                                 onClick={this.createParty} disabled={this.state.createButtonDisabled}>Create</Button>
                     </CardContent>
                 </Card>

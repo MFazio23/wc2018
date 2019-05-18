@@ -55,7 +55,7 @@ class Overview extends Component {
                     <CardContent>
                         {!firebase.auth().currentUser &&
                             <div className={this.classes.loginButtonDiv}>
-                                <Button size="large" color="primary" variant="raised"
+                                <Button size="large" color="primary" variant="contained"
                                         onClick={this.handleLoginButtonClicked}>Login</Button>
                             </div>
                         }

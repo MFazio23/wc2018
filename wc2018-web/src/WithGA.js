@@ -15,7 +15,7 @@ const withGA = (WrappedComponent, options = {}) => {
         GA.pageview(page);
     };
 
-    const HOC = class extends Component {
+    return class extends Component {
         componentDidMount() {
             const page = this.props.location.pathname;
             trackPage(page);
@@ -34,8 +34,6 @@ const withGA = (WrappedComponent, options = {}) => {
             return <WrappedComponent {...this.props} />;
         }
     };
-
-    return HOC;
 };
 
 export default withGA;
