@@ -1,6 +1,6 @@
 import axios from 'axios';
 import firebase from 'firebase/app';
-import {Config} from "./Config";
+import Config from "./Config";
 
 const api = axios.create({
     baseURL: Config.apiBaseUrl

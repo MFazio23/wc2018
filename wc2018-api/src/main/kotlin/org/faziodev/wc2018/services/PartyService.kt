@@ -69,7 +69,7 @@ class PartyService(@Autowired val teams: List<Team>, @Autowired val googleCreden
     fun addUserToParty(partyToken: String, user: PartyUser) {
         val party: Party = this.getPartyByToken(partyToken) ?: return
 
-        if (party.users?.count() ?: 0 < 32) {
+        if (party.users?.count() ?: 0 < teams.size) {
             this.saveParty(party.copy(users = party.users?.plus(user.id to user)))
         }
     }
@@ -98,7 +98,7 @@ class PartyService(@Autowired val teams: List<Team>, @Autowired val googleCreden
     fun distributeTeamsForParty(partyToken: String, rankingType: RankingType, teamsPerUser: Int): Party? {
         val party: Party = this.getPartyByToken(partyToken) ?: return null
         val users: Map<String, PartyUser> = party.users ?: return party
-        if (teamsPerUser <= 0 || users.size * teamsPerUser > 32) return party
+        if (teamsPerUser <= 0 || users.size * teamsPerUser > teams.size) return party
         val rankedTeams = this.rankingsService.getTeamsWithRankings() ?: return party
 
         val sortedTeams = rankedTeams

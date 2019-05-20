@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {withStyles} from "@material-ui/core/styles/index";
 import api from '../../util/API';
+import Teams from "../../util/Teams";
 import Button from "@material-ui/core/Button"
 import Card from "@material-ui/core/Card";
 import Dialog from "@material-ui/core/Dialog";
@@ -58,10 +59,10 @@ const rankingTypeInfo = {
         link: 'https://www.fifa.com/fifa-world-ranking/ranking-table/men/index.html',
         showLink: true
     },
-    ELO: {
+    SPI: {
         text: 'Use the current ',
-        linkText: 'ELO Rankings',
-        link: 'https://www.eloratings.net/',
+        linkText: 'FiveThirtyEight SPI Rankings',
+        link: 'https://fivethirtyeight.com/features/the-u-s-draws-an-easy-group-at-the-2019-world-cup-france-not-so-much/',
         showLink: true
     },
     Random: {
@@ -135,7 +136,7 @@ class DraftPartyDialog extends Component {
 
     getTeamsPerUserOptions = () => {
         let teams = [];
-        const maxPerUser = Math.floor(32 / Object.keys(this.props.party.users).length);
+        const maxPerUser = Math.floor(Object.keys(Teams).length / Object.keys(this.props.party.users).length);
 
         for (let t = 1; t <= maxPerUser; t++) {
             teams.push(t);
@@ -177,7 +178,7 @@ class DraftPartyDialog extends Component {
                                         id: 'ranking-type'
                                     }}>
                                     <MenuItem value="FIFA">FIFA Rankings</MenuItem>
-                                    <MenuItem value="ELO">ELO Rankings</MenuItem>
+                                    <MenuItem value="SPI">FiveThirtyEight's SPI Rankings</MenuItem>
                                     <MenuItem value="Random">Random</MenuItem>
                                 </Select>
                                 <FormHelperText>

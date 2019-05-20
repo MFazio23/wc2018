@@ -50,7 +50,7 @@ class Overview extends Component {
                 <Card className={this.classes.card}>
                     <CardHeader
                         className={this.classes.title}
-                        title="Welcome to WC2018!"
+                        title="Welcome to WWC2019!"
                         /*action={<IconButton><SettingsIcon /></IconButton>}*//>
                     <CardContent>
                         {!firebase.auth().currentUser &&
@@ -60,13 +60,13 @@ class Overview extends Component {
                             </div>
                         }
                         <p>
-                            WC2018 is a fantasy game for the 2018 FIFA World Cup Russia™.<br/>
+                            WWC2019 is a fantasy game for the FIFA Women's World Cup France 2019™.<br/>
                             Join one or more groups, get your teams, and compete against your friends!<br/>
-                            You can create and join groups of anywhere from 2-32 people.<br/>
+                            You can create and join groups of anywhere from 2-24 people.<br/>
                             Log in above to get started!<br/>
                             <br />
                         </p>
-                        <Typography variant="subheading" color="primary">
+                        <Typography variant="subtitle1" color="primary">
                             Joining a Party
                         </Typography>
                         <ol>
@@ -76,7 +76,7 @@ class Overview extends Component {
                             <li>Search for your friend's party</li>
                             <li>Click "JOIN"!</li>
                         </ol>
-                        <Typography variant="subheading" color="primary">
+                        <Typography variant="subtitle1" color="primary">
                             Creating a Party
                         </Typography>
                         <ol>
@@ -86,7 +86,7 @@ class Overview extends Component {
                             <li>Click "CREATE"</li>
                             <li>Send your party's six-character code to your friends!</li>
                         </ol>
-                        <Typography variant="subheading" color="primary">
+                        <Typography variant="subtitle1" color="primary">
                             Scoring
                         </Typography>
                         <div>
@@ -98,15 +98,15 @@ class Overview extends Component {
                                 <li>Each goal scored: 1 point</li>
                             </ul>
                         </div>
-                        <Typography variant="subheading" color="primary">
+                        <Typography variant="subtitle1" color="primary">
                             Team Distribution
                         </Typography>
                         <p>
                             Teams are distributed in parties randomly, based on criteria set by the party owner.
-                            Owners choose from three ranking systems (FIFA Rankings, ELO Rankings, and a random ranking) as well as how many teams each player is assigned.
+                            Owners choose from three ranking systems (FIFA Rankings, FiveThirtyEight's SPI Rankings, and a random ranking) as well as how many teams each player is assigned.
                         </p>
                         <Typography className={this.classes.finePrint} color="textSecondary">
-                            WC2018 is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
+                            WWC2019 is in no way officially associated with FIFA or the FIFA Women's World Cup France 2019™.
                         </Typography>
                     </CardContent>
                 </Card>

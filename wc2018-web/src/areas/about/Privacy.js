@@ -21,9 +21,9 @@ class Privacy extends Component {
     render() {
         return (
             <Card>
-                <CardHeader title="WC2018 Privacy Policy and Terms of Service"/>
+                <CardHeader title="WWC2019 Privacy Policy and Terms of Service"/>
                 <CardContent>
-                    <Typography color="primary" variant="headline">Privacy</Typography>
+                    <Typography color="primary" variant="h5">Privacy</Typography>
                     <pre className={this.classes.info}>
                         Normally, this would some huge blob of legalese that nobody would read.<br />
                         <br />
@@ -39,11 +39,11 @@ class Privacy extends Component {
                         Past that, I don't get any personal info nor do I want it.<br />
                     </pre>
                     <br />
-                    <Typography color="primary" variant="headline">Terms of Service</Typography>
+                    <Typography color="primary" variant="h5">Terms of Service</Typography>
                     <pre className={this.classes.info}>
-                        WC2018 is just for fun, <i>should</i> be free, and has no attached warranty.<br />
+                        WWC2019 is just for fun, <i>should</i> be free, and has no attached warranty.<br />
                         <br />
-                        Again, this is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.<br />
+                        Again, this is in no way officially associated with FIFA or the FIFA Women's World Cup France 2019™.<br />
                         <br />
                         Soccer ball icon made by <a href="http://www.freepik.com/">Freepik</a> from <a href="http://www.flaticon.com/">www.flaticon.com</a>
                     </pre>

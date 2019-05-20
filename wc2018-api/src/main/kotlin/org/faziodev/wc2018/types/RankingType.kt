@@ -4,5 +4,6 @@ enum class RankingType {
     Unknown,
     FIFA,
     ELO,
+    SPI,
     Random
 }

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import GA from 'react-ga';
-import {Config} from "./util/Config";
+import Config from "./util/Config";
 
-GA.initialize('UA-52217136-6', {
+GA.initialize('UA-52217136-7', {
     debug: Config.firebaseEnv === 'test'
 });
 

@@ -64,7 +64,7 @@ class Rankings extends Component {
                         <TableRow className={this.classes.headerRow}>
                             <TableCell>Team Name</TableCell>
                             <TableCell>FIFA</TableCell>
-                            <TableCell>ELO</TableCell>
+                            <TableCell>SPI</TableCell>
                             <TableCell className={this.classes.desktopOnly}>W</TableCell>
                             <TableCell className={this.classes.desktopOnly}>D</TableCell>
                             <TableCell className={this.classes.desktopOnly}>G</TableCell>
@@ -80,13 +80,13 @@ class Rankings extends Component {
                                     <TableCell component="th" scope="row">
                                         {ranking.name || key}
                                     </TableCell>
-                                    <TableCell numeric>{ranking.fifa}</TableCell>
-                                    <TableCell numeric>{ranking.elo}</TableCell>
-                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.w}</TableCell>
-                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.d}</TableCell>
-                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.g}</TableCell>
-                                    <TableCell className={this.classes.desktopOnly} numeric>{ranking.cs}</TableCell>
-                                    <TableCell className={this.classes.desktopOnly} numeric><b>{ranking.p}</b></TableCell>
+                                    <TableCell align="right">{ranking.fifa}</TableCell>
+                                    <TableCell align="right">{ranking.spi}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} align="right">{ranking.w}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} align="right">{ranking.d}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} align="right">{ranking.g}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} align="right">{ranking.cs}</TableCell>
+                                    <TableCell className={this.classes.desktopOnly} align="right"><b>{ranking.p}</b></TableCell>
                                 </TableRow>
                             );
                         })}

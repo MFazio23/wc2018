@@ -13,7 +13,7 @@ import PartyCard from "./PartyCard";
 import CreateParty from "./CreateParty";
 import JoinParty from "./JoinParty";
 import withRoot from "../../WithRoot";
-import {Config} from "../../util/Config";
+import Config from "../../util/Config";
 
 const styles = theme => ({
     partyButtons: {
@@ -141,7 +141,7 @@ class ListParties extends Component {
                                 <Typography variant="body2">
 
                                 </Typography>
-                                <Typography variant="subheading" color="primary">
+                                <Typography variant="subtitle1" color="primary">
                                     Joining a Party
                                 </Typography>
                                 <ol>
@@ -150,7 +150,7 @@ class ListParties extends Component {
                                     <li>Search for your friend's party</li>
                                     <li>Click "JOIN"!</li>
                                 </ol>
-                                <Typography variant="subheading" color="primary">
+                                <Typography variant="subtitle1" color="primary">
                                     Creating a Party
                                 </Typography>
                                 <ol>

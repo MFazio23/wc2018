@@ -119,28 +119,30 @@ class PartyUserSummary extends Component {
                         <CardContent>
                             {this.props.partyUser.teams ?
                                 <List className={this.classes.teamList}>
-                                    {this.props.partyUser.teams.sort((a, b) => b.stats.p - a.stats.p).map((team) =>
-                                        <ListItem key={team.id}>
-                                            <ListItemIcon className={this.classes.teamFlag}>
-                                                {this.getFlag(team.id, team.stats.eliminated)}
-                                            </ListItemIcon>
-                                            <ListItemText primary={team.name} secondary={`${team.stats.p} points`}/>
-                                            <ListItemSecondaryAction className={this.classes.stats}>
-                                                <Grid container>
-                                                    <Grid item xs={3}>{`${team.stats.w}W`}</Grid>
-                                                    <Grid item xs={3}>{`${team.stats.d}D`}</Grid>
-                                                    <Grid item xs={3}>{`${team.stats.g}G`}</Grid>
-                                                    <Grid item xs={3}>{`${team.stats.cs}CS`}</Grid>
-                                                </Grid>
-                                            </ListItemSecondaryAction>
-                                        </ListItem>
-                                    )}
+                                    {this.props.partyUser.teams
+                                        .sort((a, b) => (a.stats && b.stats) ? b.stats.p - a.stats.p : b.name.localeCompare(a.name))
+                                        .map((team) =>
+                                            <ListItem key={team.id}>
+                                                <ListItemIcon className={this.classes.teamFlag}>
+                                                    {this.getFlag(team.id, team.stats && team.stats.eliminated)}
+                                                </ListItemIcon>
+                                                <ListItemText primary={team.name} secondary={`${team.stats ? team.stats.p : 0} points`}/>
+                                                <ListItemSecondaryAction className={this.classes.stats}>
+                                                    <Grid container>
+                                                        <Grid item xs={3}>{`${team.stats ? team.stats.w : 0}W`}</Grid>
+                                                        <Grid item xs={3}>{`${team.stats ? team.stats.d : 0}D`}</Grid>
+                                                        <Grid item xs={3}>{`${team.stats ? team.stats.g : 0}G`}</Grid>
+                                                        <Grid item xs={3}>{`${team.stats ? team.stats.cs : 0}CS`}</Grid>
+                                                    </Grid>
+                                                </ListItemSecondaryAction>
+                                            </ListItem>
+                                        )}
                                 </List> :
                                 <Typography className={this.classes.notYetDrafted}>
                                     This party has not yet distributed teams. <br/>
                                     {this.props.currentUserIsPartyOwner ?
                                         <span>
-                                            You can distribute teams by clicking the gear icon and choosing 'Distribute teams'.<br />
+                                            You can distribute teams by clicking the gear icon and choosing 'Distribute teams'.<br/>
                                             Note that you must have at least two players in a party to distribute teams.
                                         </span> :
                                         "Ask your party's owner to do this!"}
@@ -150,7 +152,8 @@ class PartyUserSummary extends Component {
                             <Grid container>
                                 <Grid item xs={6}>
                                     {this.props.currentUserIsPartyOwner && !this.props.isPartyOwner &&
-                                    <Button className={this.classes.removeUserButton} variant="contained" color="inherit"
+                                    <Button className={this.classes.removeUserButton} variant="contained"
+                                            color="inherit"
                                             disabled={this.state.removeButtonDisabled}
                                             onClick={this.removeUserFromParty}>Remove from Party</Button>}
                                 </Grid>

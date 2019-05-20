@@ -1,6 +1,6 @@
 {
-    "name": "WC2018",
-    "short_name": "WC2018",
+    "name": "WWC2019",
+    "short_name": "WWC2019",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#1e4482",
-    "background_color": "#1e4482",
+    "theme_color": "#0055a4",
+    "background_color": "#0055a4",
     "display": "standalone"
 }

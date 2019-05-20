@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
-import footballGold from '../../img/football-gold.svg'
+import footballRed from '../../img/football-red.svg'
 import {Link} from "react-router-dom";
 import withRoot from "../../WithRoot";
 import firebase from "firebase/app";
@@ -38,8 +38,8 @@ class TopNav extends Component {
     }
 
     handleClick = (event, source) => {
-        if(source === 'userMenu') this.setState({anchorEl: event.currentTarget});
-        if(source === 'login') {
+        if (source === 'userMenu') this.setState({anchorEl: event.currentTarget});
+        if (source === 'login') {
             this.setState({loginOpen: true});
             GA.event({
                 category: 'user',
@@ -50,8 +50,8 @@ class TopNav extends Component {
     };
 
     handleClose = (closedItem) => {
-        if(closedItem === 'profileMenu') this.setState({anchorEl: null});
-        if(closedItem === 'login') this.setState({loginOpen: false});
+        if (closedItem === 'profileMenu') this.setState({anchorEl: null});
+        if (closedItem === 'login') this.setState({loginOpen: false});
     };
 
     signOut = () => {
@@ -73,9 +73,9 @@ class TopNav extends Component {
                 <AppBar position="static">
                     <Toolbar>
                         <IconButton className={classes.logo} color="inherit" aria-label="menu" component={Link} to="/">
-                            <img src={footballGold} className={classes.logo} alt="Logo"/>
+                            <img src={footballRed} className={classes.logo} alt="Logo"/>
                         </IconButton>
-                        <Typography variant="title" color="inherit" className={classes.flex}>WC2018</Typography>
+                        <Typography variant="h6" color="inherit" className={classes.flex}>WWC2019</Typography>
                         {this.props.isSignedIn !== undefined && !this.props.isSignedIn &&
                         <Button color="secondary" onClick={(e) => this.handleClick(e, "login")}>Login</Button>
                         }
@@ -96,9 +96,12 @@ class TopNav extends Component {
                                 open={open}
                                 onClose={() => this.handleClose("profileMenu")}>
                                 {/*<MenuItem component={Link} to='/profile' onClick={() => this.handleClose("profileMenu")}>Profile</MenuItem>*/}
-                                <MenuItem component={Link} to='/overview' onClick={() => this.handleClose("profileMenu")}>Overview</MenuItem>
-                                <MenuItem component={Link} to='/rankings' onClick={() => this.handleClose("profileMenu")}>Rankings</MenuItem>
-                                <MenuItem component={Link} to='/privacy' onClick={() => this.handleClose("profileMenu")}>Privacy/Terms</MenuItem>
+                                <MenuItem component={Link} to='/overview'
+                                          onClick={() => this.handleClose("profileMenu")}>Overview</MenuItem>
+                                <MenuItem component={Link} to='/rankings'
+                                          onClick={() => this.handleClose("profileMenu")}>Rankings</MenuItem>
+                                <MenuItem component={Link} to='/privacy'
+                                          onClick={() => this.handleClose("profileMenu")}>Privacy/Terms</MenuItem>
                                 <MenuItem onClick={this.signOut}>Sign Out</MenuItem>
                             </Menu>
                         </div>
@@ -108,7 +111,7 @@ class TopNav extends Component {
                 <Login
                     open={this.state.loginOpen && !firebase.auth().currentUser}
                     onClose={() => this.handleClose("login")}
-                    isSignedIn={this.props.isSignedIn} />
+                    isSignedIn={this.props.isSignedIn}/>
             </div>
         )
     }

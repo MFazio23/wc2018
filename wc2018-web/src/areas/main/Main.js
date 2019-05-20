@@ -17,8 +17,7 @@ import Rankings from "../about/Rankings";
 
 const styles = theme => ({
     close: {
-        width: theme.spacing.unit * 4,
-        height: theme.spacing.unit * 4,
+
     },
     main: {
         margin: '0 auto',

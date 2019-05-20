@@ -4,7 +4,7 @@ import TopNav from "./areas/main/TopNav";
 import Main from "./areas/main/Main";
 import firebase from 'firebase/app';
 import api from './util/API';
-import {Config} from "./util/Config";
+import Config from "./util/Config";
 import GA from 'react-ga';
 
 const firebaseConfig = {

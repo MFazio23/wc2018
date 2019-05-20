@@ -1,12 +1,12 @@
 
-const firebaseYear = "2018";
-const firebaseEnv = "prod";
+const firebaseYear = "2019";
+const firebaseEnv = "test";
 
-export const Config = {
+export default {
     firebaseEnv: firebaseEnv,
     firebaseYear: firebaseYear,
     firebaseBasePath: `${firebaseYear}/${firebaseEnv}`,
     firebaseBaseUrl: `https://wc2018-2bad0.firebaseio.com/${firebaseYear}/${firebaseEnv}`,
-    apiBaseUrl: "https://wc2018-api.faziodev.org/"
-    //apiBaseUrl: "http://localhost:8080/"
+    //apiBaseUrl: "https://wwc2019-api.mfazio.dev/"
+    apiBaseUrl: "http://localhost:8080/"
 };

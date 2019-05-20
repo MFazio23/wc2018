@@ -60,7 +60,7 @@ class Login extends Component {
         const {classes} = this.props;
         return (
             <Dialog onClose={this.handleClose} open={this.props.open}>
-                <DialogTitle>WC2018 Account</DialogTitle>
+                <DialogTitle>WWC2019 Account</DialogTitle>
                 <div>
                     {this.props.isSignedIn !== undefined && !this.props.isSignedIn &&
                     <div>

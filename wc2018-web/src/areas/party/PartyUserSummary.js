@@ -64,12 +64,14 @@ class PartyUserSummary extends Component {
     };
 
     handleClose = (deletedUserName) => {
-        if(deletedUserName) this.props.onDisplaySnackbar(`${deletedUserName} has been removed from the party.`);
+        if (deletedUserName) this.props.onDisplaySnackbar(`${deletedUserName} has been removed from the party.`);
         else this.setState({summaryOpen: false});
     };
 
     render() {
         if (!this.props.partyUser) return <div/>;
+
+        const {classes} = this.props;
         const isCurrentUser = this.props.partyUser.id === firebase.auth().currentUser.uid;
         return (
             <div>
@@ -80,8 +82,10 @@ class PartyUserSummary extends Component {
                                       {this.props.partyUser.name}</Typography>}
                                   secondary={`${this.props.partyUser.userScore || 0} points`}/>
                     {this.props.partyUser.teams ? (<ListItemSecondaryAction>
-                            <div id={`teams-${this.classes.flags}`} className={this.classes.flags}>
-                                {this.props.partyUser.teams.sort((a, b) => b.stats.p - a.stats.p).map((team) => this.getFlag(team.id, team.stats.eliminated))}
+                            <div id={`teams-${classes.flags}`} className={classes.flags}>
+                                {this.props.partyUser.teams
+                                    .sort((a, b) => (a.stats && b.stats) ? b.stats.p - a.stats.p : b.name.localeCompare(a.name))
+                                    .map((team) => this.getFlag(team.id, team.stats && team.stats.eliminated))}
                             </div>
                         </ListItemSecondaryAction>) :
                         ''}
