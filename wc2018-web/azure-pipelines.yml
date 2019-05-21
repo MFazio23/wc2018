@@ -1,0 +1,42 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '10.x'
+  displayName: 'Install Node.js'
+- task: YarnInstaller@2
+  inputs:
+    versionSpec: '1.x'
+    checkLatest: true
+- task: Yarn@2
+  inputs:
+    ProjectDirectory: 'wc2018-web'
+    Arguments: 'install'
+- task: Yarn@2
+  inputs:
+    ProjectDirectory: 'wc2018-web'
+    Arguments: 'run build'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: 'wc2018-web/build'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Fazio Skyline MSDN (OLD) (5369b547-539a-4382-990e-6b61c1811368)'
+    appType: 'webApp'
+    appName: 'fazio-wwc2019'
+    package: '$(Build.ArtifactStagingDirectory)/*.zip'
+    deploymentMethod: 'auto'
