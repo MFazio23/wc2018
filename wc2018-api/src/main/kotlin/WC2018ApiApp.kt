@@ -12,7 +12,7 @@ import org.springframework.core.io.ClassPathResource
 
 @SpringBootApplication(exclude = [SecurityAutoConfiguration::class])
 //@EnableGlobalMethodSecurity(securedEnabled = true)
-class WC2018ApiApp(baseDBUrl: String = "https://wwc2019-2bad0.firebaseio.com") {
+class WC2018ApiApp(baseDBUrl: String = "https://wc2018-2bad0.firebaseio.com") {
     final var googleCredentials: GoogleCredentials
 
     init {

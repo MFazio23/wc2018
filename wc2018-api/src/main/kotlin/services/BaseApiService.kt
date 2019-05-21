@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired
 abstract class BaseApiService(@Autowired private val googleCredentials: GoogleCredentials) {
 
     protected val firebaseBaseUrl: String =
-        "https://wwc2019-2bad0.firebaseio.com/${Config.firebaseYear}/${Config.firebaseEnv}"
+        "https://wc2018-2bad0.firebaseio.com/${Config.firebaseYear}/${Config.firebaseEnv}"
 
     private val database: FirebaseDatabase = FirebaseDatabase.getInstance()
 
