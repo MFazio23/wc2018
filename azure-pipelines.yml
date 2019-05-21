@@ -28,7 +28,7 @@ steps:
     Arguments: 'run build'
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: 'build'
+    rootFolderOrFile: 'wc2018-web\build'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
