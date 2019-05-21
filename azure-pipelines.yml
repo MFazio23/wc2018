@@ -14,8 +14,15 @@ steps:
   inputs:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
-
-- script: |
-    npm install
-    npm run build
-  displayName: 'npm install and build'
+- task: YarnInstaller@2
+  inputs:
+    versionSpec: '1.x'
+    checkLatest: true
+- task: Yarn@2
+  inputs:
+    ProjectDirectory: 'wc2018-web'
+    Arguments: 'install'
+- task: Yarn@2
+  inputs:
+    ProjectDirectory: 'wc2018-web'
+    Arguments: 'run build'
