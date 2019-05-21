@@ -26,3 +26,17 @@ steps:
   inputs:
     ProjectDirectory: 'wc2018-web'
     Arguments: 'run build'
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(system.defaultworkingdirectory)/build'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    replaceExistingArchive: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Fazio Skyline MSDN (OLD) (5369b547-539a-4382-990e-6b61c1811368)'
+    appType: 'webApp'
+    appName: 'fazio-wwc2019'
+    package: '$(Build.ArtifactStagingDirectory)/*.zip'
+    deploymentMethod: 'auto'
