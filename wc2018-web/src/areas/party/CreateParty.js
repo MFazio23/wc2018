@@ -106,7 +106,7 @@ class CreateParty extends Component {
                         </Typography>
                         <TextField
                             id="partyName"
-                            label="Name"
+                            label="Party Name"
                             className={classes.partyNameField}
                             onChange={this.handleChange('partyName')}
                             value={this.state.partyName}
