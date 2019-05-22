@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {withStyles} from '@material-ui/core/styles';
+import Config from '../../util/Config'
 import footballRed from '../../img/football-red.svg'
 import {Link} from "react-router-dom";
 import withRoot from "../../WithRoot";
@@ -76,6 +77,7 @@ class TopNav extends Component {
                             <img src={footballRed} className={classes.logo} alt="Logo"/>
                         </IconButton>
                         <Typography variant="h6" color="inherit" className={classes.flex}>WWC2019</Typography>
+                        <Typography variant="caption" color="error">{Config.firebaseEnv.toLowerCase() === 'test' ? '(Test)': ''}</Typography>
                         {this.props.isSignedIn !== undefined && !this.props.isSignedIn &&
                         <Button color="secondary" onClick={(e) => this.handleClick(e, "login")}>Login</Button>
                         }
