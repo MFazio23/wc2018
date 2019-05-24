@@ -1,5 +1,6 @@
 package dev.mfazio.wwc2019.security
 
+import com.google.firebase.auth.FirebaseAuth
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.GenericFilterBean
@@ -24,7 +25,7 @@ class FirebaseFilter : GenericFilterBean() {
         val httpServletRequest: HttpServletRequest = request as HttpServletRequest
         val httpServletResponse: HttpServletResponse = response as HttpServletResponse
 
-        /*if (httpServletRequest.method != "OPTIONS" && validatePath(httpServletRequest.servletPath)) {
+        if (httpServletRequest.method != "OPTIONS" && validatePath(httpServletRequest.servletPath)) {
             val authHeader = httpServletRequest.getHeader("Authorization")
 
             if (authHeader == null) {
@@ -41,7 +42,7 @@ class FirebaseFilter : GenericFilterBean() {
             }
 
             println("Auth. Header: $authHeader, Method: ${httpServletRequest.method}, Firebase Name: ${firebaseToken.name}, Firebase UID: ${firebaseToken.uid}")
-        }*/
+        }
 
         chain?.doFilter(request, response)
     }
