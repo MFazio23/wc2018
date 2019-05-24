@@ -1,6 +1,6 @@
 
 const firebaseYear = "2019";
-const firebaseEnv = "test";
+const firebaseEnv = "prod";
 
 export default {
     firebaseEnv: firebaseEnv,

@@ -168,7 +168,7 @@ class JoinParty extends Component {
                                         <div>Owner: {this.state.selectedParty.owner.name}</div>
                                         <div>Total Users: {Object.keys(this.state.selectedParty.users).length}</div>
                                         <Tooltip placement="top"
-                                                 title={this.state.alreadyInParty ? "You are already a member of this party." : (this.state.maxUsersInParty ? "There are already 32 people in this party." : "")}>
+                                                 title={this.state.alreadyInParty ? "You are already a member of this party." : (this.state.maxUsersInParty ? "There are already 24 people in this party." : "")}>
                                             <div>
                                                 <Button className={classes.joinPartyButton} variant="contained"
                                                         color="primary"
