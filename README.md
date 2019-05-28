@@ -43,8 +43,6 @@ Past that, I don't get any personal info nor do I want it.
 ## Terms of Service
 WWC2019 is just for fun, should be free, and has no attached warranty.
 
-Again, this is in no way officially associated with FIFA or the 2018 FIFA World Cup Russia™.
+Again, this is in no way officially associated with FIFA or the FIFA Women's World Cup France 2019™.
 
 Soccer ball icon made by Freepik from www.flaticon.com
-
-###### WWC2019 is in no way officially associated with FIFA or the FIFA Women's World Cup France 2019™.
