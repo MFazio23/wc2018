@@ -44,9 +44,9 @@ class ScoreService(@Autowired val teams: List<Team>, googleCredentials: GoogleCr
     fun loadResults(): Map<String, Score> {
         val results: MutableMap<String, Score> = mutableMapOf()
 
-        val doc: Document = Jsoup.connect("https://www.fifa.com/worldcup/matches/").get()
+        val doc: Document = Jsoup.connect("https://www.fifa.com/womensworldcup/matches/").get()
 
-        val fixtures: Elements = doc.select("div.result")
+        val fixtures: Elements = doc.select(".fi-mu.result")
 
         for(fixture in fixtures) {
             val id: String = fixture.dataset()["id"] ?: continue
