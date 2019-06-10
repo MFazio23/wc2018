@@ -169,6 +169,20 @@ class ListParties extends Component {
                                                        onStopTrackingParty={this.handleStopTrackingParty}/>)}</div>
                 <JoinParty open={this.state.joinOpen} onClose={this.handleClose}/>
                 <CreateParty open={this.state.createOpen} onClose={this.handleClose}/>
+                <Card>
+                    <CardHeader title="Scoring" />
+                    <CardContent>
+                        <div>
+                            Players are awarded points for their teams' performance in the World Cup.<br />
+                            <ul>
+                                <li>Each win: 3 points</li>
+                                <li>Each clean sheet (shutout): 2 points</li>
+                                <li>Each draw (tie): 1 point</li>
+                                <li>Each goal scored: 1 point</li>
+                            </ul>
+                        </div>
+                    </CardContent>
+                </Card>
             </div>
         );
     }
